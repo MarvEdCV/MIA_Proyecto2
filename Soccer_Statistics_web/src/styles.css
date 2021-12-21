@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+.navbar-brand
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin:0 auto;
+}
+.navbar-toggle {
+    z-index:3;
+}
+h3 {
+    margin: 0;
+    padding: 0;
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+
+  }
+
+  hr {
+    height: 10px;
+    background-color: white;
+  }
+.video{
+    text-align: center;
+} 
+.tabla1{
+    color: aliceblue;
+    table-layout: fixed;
+    width: 100%;
+} 
+.tabla2{
+    table-layout: fixed;
+    width: 100%;
+    text-align: center;
+} 
+body { 
+    height:100%;
+    background-image: url("assets\img\fondo1.jpg") ;
+    background-size: cover;
+     background-repeat:no-repeat;
+     background-position: center center;
+}
+.letra{
+    font-family: 'Courier New', Courier, monospace;
+} 
+    
