@@ -22,6 +22,71 @@ app.get('/',(req,res)=>{
     res.send([{message: 'hola nenes'}]);
 });
 
+app.post('/login',(req,res) =>{
+    //recibiremos el user y la pass en json
+    const {ID_TIPOUSUARIO,TIPO_USUARIO} = req.body;
+    if(ID_TIPOUSUARIO && TIPO_USUARIO){
+        res.send('datos correctos!');
+        console.log(req.body);
+    }else{
+        console.log(req.body);
+        res.send('falta un dato');
+    }   
+    
+})
+
+app.post('/registrar',(req,res) =>{
+    const {usuario,contra,email,tipo_usuario,nombre,apellido} = req.body;
+})
+
+
+
+//funciones.
+async function login(req) {
+    let con, result
+    // consulta a ejecutar
+    const query = "SELECT usuarios.EMAIL, usuarios.CONTRA" +
+        " FROM DBP2.USUARIOS " +
+        " WHERE usuarios.EMAIL = :email"
+    // datos a insertar
+    const binds = [req.email]
+    try {
+        con = await OracleDB.getConnection(dbconfig)
+        result = await con.execute(query, binds, { autoCommit: true, maxRows: 1 })
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    if (result.rows.length == 1) {
+        let confirmado = result.rows[0][3]
+        let pwd = result.rows[0][1]
+        if (confirmado === 1) {
+            if (bcrypt.compareSync(req.pwd, pwd)) {
+                let id = result.rows[0][0]
+                let esAdmin = result.rows[0][2]
+                let token = sign({ id, esAdmin },
+                    'seed-de-dessarollo-miap2',
+                    { expiresIn: '48h' })
+                // Credenciales correctas y correo confirmado
+                return { ok: true, token, esAdmin }
+            }
+        } else {
+            // Usuario aún no está confirmado
+            return { ok: false, status: 403 }
+        }
+    }
+    // Correo o contraseña incorrecta
+    return { ok: false, status: 401 }
+}
+
 
 app.get('/prueba', function (req, res) {
     "use strict";
