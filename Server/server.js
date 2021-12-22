@@ -3,6 +3,7 @@ var express = require("express");
 var app = express();
 var bodyparser = require('body-parser');
 var oracledb = require('oracledb');
+const bcrypt = require('bcrypt');
 
 app.use(bodyparser.json());
 
@@ -22,8 +23,31 @@ app.get('/',(req,res)=>{
     res.send([{message: 'hola nenes'}]);
 });
 
-app.post('/login',(req,res) =>{
+app.post('/login', async (req, res) => {
+    console.log(req.body);
+    let body = req.body
+    let result = await login(body)
+    if (result.ok) {
+        res.send('confirmado!!')
+        return res.status(200).send(result)
+    } else {
+        if (result.err) {
+            // Error imprevisto
+            return res.status(500).send(result)
+        } else {
+            // Usuario o contraseña inválidos
+            res.send('usuario o contra incoicas incorrectas')
+            return res.status(result.status).send({ ok: false })
+        }
+    }
+})
+
+/*
+app.post('/aa/login',(req,res) =>{
     //recibiremos el user y la pass en json
+
+
+
     const {ID_TIPOUSUARIO,TIPO_USUARIO} = req.body;
     if(ID_TIPOUSUARIO && TIPO_USUARIO){
         res.send('datos correctos!');
@@ -33,7 +57,7 @@ app.post('/login',(req,res) =>{
         res.send('falta un dato');
     }   
     
-})
+})*/
 
 app.post('/registrar',(req,res) =>{
     const {usuario,contra,email,tipo_usuario,nombre,apellido} = req.body;
@@ -51,7 +75,7 @@ async function login(req) {
     // datos a insertar
     const binds = [req.email]
     try {
-        con = await OracleDB.getConnection(dbconfig)
+        con = await oracledb.getConnection(connAttrs);
         result = await con.execute(query, binds, { autoCommit: true, maxRows: 1 })
     } catch (err) {
         console.error(err)
@@ -66,22 +90,20 @@ async function login(req) {
         }
     }
     if (result.rows.length == 1) {
-        let confirmado = result.rows[0][3]
+        //let confirmado = result.rows[0][3]
         let pwd = result.rows[0][1]
-        if (confirmado === 1) {
             if (bcrypt.compareSync(req.pwd, pwd)) {
-                let id = result.rows[0][0]
-                let esAdmin = result.rows[0][2]
+                //let id = result.rows[0][0]
+                /*let esAdmin = result.rows[0][2]
                 let token = sign({ id, esAdmin },
                     'seed-de-dessarollo-miap2',
-                    { expiresIn: '48h' })
+                    { expiresIn: '48h' })*/
                 // Credenciales correctas y correo confirmado
-                return { ok: true, token, esAdmin }
+                return { ok: true/*, token, esAdmin*/ }
             }
-        } else {
-            // Usuario aún no está confirmado
-            return { ok: false, status: 403 }
-        }
+        
+    }else{
+        return { ok: false, status: 401 }   
     }
     // Correo o contraseña incorrecta
     return { ok: false, status: 401 }
