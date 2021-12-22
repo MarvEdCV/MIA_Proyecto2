@@ -1,0 +1,136 @@
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Soccer Statistics</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-dark">Dark</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="texto2">
+      <table class="tabla2">
+          <tr>
+            
+              <td><button type="button" class="btn btn-secondary"><a class="texto2" href="/Principal" >Regresar página principal</a></button></td>
+              
+          </tr>
+      </table>
+    
+</div>
+<hr size="2px" color="black" />
+<div class="espacio"></div>
+<div class="register">
+    <form class="custom-form" method="post">
+      <h1 class="texto">Registro</h1>
+      <table class="tabla2">
+        <tr>
+            <td> <input
+                type="nombre"
+                [(ngModel)]="nombre"
+                name="nombre"
+                placeholder="Nombre"
+                required="required"
+                /></td>
+                
+            <td> <input
+                type="apellido"
+                [(ngModel)]="apellido"
+                name="apellido"
+                placeholder="Apellidos"
+                required="required"
+                /></td>
+                <td>
+                    <input
+          type="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Password"
+            required="required"
+          />
+                </td>
+        </tr>
+        <tr>
+            <td>
+                <input
+                type="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="Email"
+                required="required"
+              />
+            </td>
+            <td>
+                <input
+                type="telefono"
+                [(ngModel)]="telefono"
+                name="telefono"
+                placeholder="Telefono"
+                required="required"
+                />
+            </td>
+            <td>
+                <input
+                type="foto"
+                [(ngModel)]="foto"
+                name="foto"
+                placeholder="Fotografía"
+                required="required"
+                />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input
+                type="genero"
+                [(ngModel)]="genero"
+                name="genero"
+                placeholder="Genero"
+                required="required"
+                />
+            </td>
+            <td>
+                <input
+                type="date"
+                [(ngModel)]="FechaN"
+                name="fechaN"
+                placeholder="Fecha Nacimiento"
+                required="required"
+                />
+            </td>
+            <td>
+                <input
+                type="direccion"
+                [(ngModel)]="Direccion"
+                name="direccion"
+                placeholder="Direccion"
+                required="required"
+                />
+            </td>
+           
+        </tr>
+        <tr>
+           
+            <td colspan="3"> <input
+                type="pais"
+                [(ngModel)]="genero"
+                name="pais"
+                placeholder="Pais"
+                required="required"
+                /></td>
+           
+        </tr>
+    </table>
+     
+      <button type="submit">Registrar Cuenta</button>
+    </form>
+    <div class="espacio"></div>
+    <hr size="2px" color="black" />
+    <div class="texto">
+      <a href="http://localhost:4200/login" >Iniciar Sesion</a>
+  </div>
+  </div>

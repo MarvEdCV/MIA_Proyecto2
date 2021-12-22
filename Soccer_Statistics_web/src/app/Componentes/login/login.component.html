@@ -1,0 +1,71 @@
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Soccer Statistics</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-dark">Dark</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="texto2">
+      <table class="tabla2">
+          <tr>
+              <td><img src="assets\img\logo.png" width="200" height="180"></td>
+              <td><button type="button" class="btn btn-secondary"><a class="texto2" href="/Principal" >Regresar página principal</a></button></td>
+              <td><img src="assets\img\logo.png" width="200" height="180"></td>
+          </tr>
+      </table>
+    
+</div>
+
+    <hr size="2px" color="black" />
+    <div class="espacio"></div>
+    <div class="login">
+        <form class="custom-form" method="post">
+          <h1 class="texto">Inicio de sesión</h1>
+          <table class="">
+              <tr>
+                  <td> <img src="assets\img\p2.png" width="50" height="50"></td>
+                  <td [width]="1000">
+                 <input
+                 type="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="Email"
+                required="required"
+                />
+                  </td>
+              </tr>
+              <tr>
+                <td> <img src="assets\img\contra.png" width="50" height="50"></td> 
+               <td [width]="1000"> 
+                <input
+                type="password"
+                [(ngModel)]="password"
+                name="password"
+                placeholder="Password"
+                required="required"
+              />
+               </td> 
+                
+              </tr>
+          </table>
+         
+          
+          <button type="submit" class="texto2">Login</button>
+        </form>
+        <div class="espacio"></div>
+        <hr size="2px" color="black" />
+
+        <div class="texto2">
+            <button type="button" class="btn btn-secondary"><a class="texto2" href="/Registro" >Crear una nueva cuenta</a></button>
+        </div>
+       
+        
+      </div>
+
