@@ -3,8 +3,11 @@ var express = require("express");
 var app = express();
 var bodyparser = require('body-parser');
 var oracledb = require('oracledb');
-const bcrypt = require('bcrypt');
 const { sign } = require('jsonwebtoken')
+
+const nodemailer = require('nodemailer')
+
+
 
 app.use(bodyparser.json());
 
@@ -20,7 +23,16 @@ app.use((req, res, next) => {
     next();
 });
 
- 
+
+const emailService = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: "spmedranocojulun16@gmail.com",
+        secure: false,
+        pass: "sara160519"
+        //proyectomia2
+    }
+}) 
 
 var connAttrs = {
     "user": "DBP2",
@@ -34,10 +46,8 @@ app.get('/',(req,res)=>{
 });
 
 app.post('/login', async (req, res) => {
-    console.log(req.body);
     let body = req.body
     let result = await login(body)
-    console.log(result)
     if (result.ok) {
         //res.send('confirmado!!')
         return res.status(200).send(result)
@@ -53,8 +63,36 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.post('/registrar',(req,res) =>{
-    const {usuario,contra,email,tipo_usuario,nombre,apellido} = req.body;
+app.post('/registrar',async (req,res) =>{
+    let body = req.body;
+    let result = await create(body)
+    if (result.ok) {
+        
+        // Envía el correo de confirmación
+        const baseUrl = `http://localhost:4200/Verificacion${result.id}`
+        const data = {
+            from: "Eduardo Catalán",
+            to: body.email,
+            subject: "Activación de cuenta",
+            text: `Link de activación ${baseUrl}`,
+            html: `<p>Link de activación <strong><a href="${baseUrl}">Verificar cuenta</a></strong></p>`
+        }
+        emailService.sendMail(data, (err, inf) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(inf)
+            }
+        })
+        return res.status(200).send({ ok: true })
+    } else {
+        if (result.err.errorNum == 1) {
+            // Correo duplicado
+            return res.status(422).send(result)
+        }
+        // Error imprevisto
+        return res.status(500).send(result)
+    }
 })
 
 
@@ -63,7 +101,7 @@ app.post('/registrar',(req,res) =>{
 async function login(req) {
     let con, result
     // consulta a ejecutar
-    const query = "SELECT usuarios.ID, usuarios.CONTRA,usuarios.tipousuario_id_tipousuario,usuarios.Confirmado" +
+    const query = "SELECT usuarios.ID, usuarios.CONTRA,usuarios.EsAdmin,usuarios.Confirmado" +
         " FROM DBP2.USUARIOS " +
         " WHERE usuarios.EMAIL = :email"
     // datos a insertar
@@ -88,7 +126,6 @@ async function login(req) {
         let pwd = result.rows[0][1];
         
         if(confirmado==1){
-            console.log(confirmado);
             if (pwd==req.pwd) {
                 let id = result.rows[0][0]
                 let esAdmin = result.rows[0][2]
@@ -108,6 +145,35 @@ async function login(req) {
 }
 
 
+async function create(req){
+    let con, result
+    // consulta a ejecutar
+    const insert_query = "INSERT INTO DBP2.USUARIOS(NOMBRE, APELLIDO, PAIS, fecha_nacimiento," +
+        "email, CONTRA, fotografia,direccion,fecha_registro,telefono) VALUES(" +
+        ":nom, :ape, :pai, TO_DATE(:fec,'yyyy-mm-dd')," +
+        ":email, :pwd, :ft, :direccion,:creacion,:telefono)"
+    const select_query = "SELECT id FROM DBP2.USUARIOS where email = :email"
+    // datos a insertar
+    const binds = [req.nombre, req.apellido, req.pais,
+    req.fecha, req.email, req.pwd, req.foto,req.direccion, new Date(),req.telefono]
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        await con.execute(insert_query, binds, { autoCommit: true })
+        result = await con.execute(select_query, [req.email])
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    return { ok: true, id: result.rows[0][0] }
+}
 app.get('/prueba', function (req, res) {
     "use strict";
 
@@ -152,6 +218,8 @@ app.get('/prueba', function (req, res) {
         });
     });
 });
+
+
 
 app.listen(4015,'localhost',function(){
     console.log("el servidor esta escuchando desde el puerto 4015 pa :D")
