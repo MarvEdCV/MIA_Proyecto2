@@ -9,6 +9,14 @@
 .navbar-toggle {
     z-index:3;
 }
+h1{
+    margin: 0;
+    padding: 0;
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+
+}
 h3 {
     margin: 0;
     padding: 0;
@@ -46,6 +54,12 @@ body {
 } 
 .nav-link{
     color: black;
+}
+a{
+    color: black;
+}
+.nav-item{
+    text-align: center;
 }
 
 .custom-form {
@@ -99,4 +113,27 @@ body {
 } 
 .espacio{
     height: 75px;
+}
+#div2{
+    height:  100%;
+    background-color:white;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid black;
+  }
+  button{
+    width: 250px;
+  }
+  .hidden {
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+  }
+  .bar1{
+    height: 10px;
+    background-color: black;
+}
+.combo{
+    width: 325px;
+    height: 48px;
 }

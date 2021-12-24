@@ -9,6 +9,7 @@ import { LoginComponent } from './Componentes/login/login.component';
 import { RouterModule , Routes  } from '@angular/router';
 import { PrincipalComponent } from './Componentes/principal/principal.component';
 import { RegistroComponent } from './Componentes/registro/registro.component';
+import { AdminComponent } from './Componentes/admin/admin.component';
 
 
 
@@ -17,7 +18,8 @@ import { RegistroComponent } from './Componentes/registro/registro.component';
     AppComponent,
     LoginComponent,
     PrincipalComponent,
-    RegistroComponent
+    RegistroComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

@@ -85,13 +85,10 @@
         </tr>
         <tr>
             <td>
-                <input
-                type="genero"
-                [(ngModel)]="genero"
-                name="genero"
-                placeholder="Genero"
-                required="required"
-                />
+                <select type="genero" name="genero" [(ngModel)]="genero" class="combo">
+                    <option value='F' >F</option>
+                    <option value='M' >M</option>
+                </select>
             </td>
             <td>
                 <input
@@ -117,7 +114,7 @@
            
             <td colspan="3"> <input
                 type="pais"
-                [(ngModel)]="genero"
+                [(ngModel)]="pais"
                 name="pais"
                 placeholder="Pais"
                 required="required"
