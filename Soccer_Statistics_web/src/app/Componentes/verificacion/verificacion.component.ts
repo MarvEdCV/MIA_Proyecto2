@@ -13,7 +13,7 @@ export class VerificacionComponent implements OnInit {
 
   ngOnInit():void{
     const parm = this.activate.snapshot.params
-    const id = parm['id']
+    const id = parm['id'];
     this.LoginService.VerificarCuenta(id).subscribe((data)=>{
       console.log(data)
       //this.router.navigate(['/signin'])

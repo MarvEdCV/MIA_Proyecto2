@@ -23,6 +23,6 @@ Registro(user:any){
 
 VerificarCuenta(id:any){
   const options = {responseType: 'text' as 'json'};
-  return this.http.get<any>(`http://localhost:4015/registrar/${id}`,options);
+  return this.http.get<any>(`http://localhost:4015/EstadoCuenta/${id}`,options);
 }
 }
