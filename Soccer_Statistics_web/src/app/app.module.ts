@@ -10,6 +10,7 @@ import { RouterModule , Routes  } from '@angular/router';
 import { PrincipalComponent } from './Componentes/principal/principal.component';
 import { RegistroComponent } from './Componentes/registro/registro.component';
 import { AdminComponent } from './Componentes/admin/admin.component';
+import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-olvidada.component';
 
 
 
@@ -19,7 +20,8 @@ import { AdminComponent } from './Componentes/admin/admin.component';
     LoginComponent,
     PrincipalComponent,
     RegistroComponent,
-    AdminComponent
+    AdminComponent,
+    ContraOlvidadaComponent
   ],
   imports: [
     BrowserModule,
