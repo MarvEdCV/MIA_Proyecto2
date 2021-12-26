@@ -9,6 +9,7 @@ import { LoginComponent } from './Componentes/login/login.component';
 import { RouterModule , Routes  } from '@angular/router';
 import { PrincipalComponent } from './Componentes/principal/principal.component';
 import { RegistroComponent } from './Componentes/registro/registro.component';
+import { VerificacionComponent } from './Componentes/verificacion/verificacion.component';
 import { AdminComponent } from './Componentes/admin/admin.component';
 import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-olvidada.component';
 
@@ -21,7 +22,8 @@ import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-ol
     PrincipalComponent,
     RegistroComponent,
     AdminComponent,
-    ContraOlvidadaComponent
+    ContraOlvidadaComponent,
+    VerificacionComponent
   ],
   imports: [
     BrowserModule,

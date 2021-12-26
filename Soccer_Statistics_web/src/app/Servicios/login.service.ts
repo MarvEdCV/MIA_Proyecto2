@@ -9,13 +9,20 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
 
-  Login(user:any){
-    const options = {responseType: 'text' as 'json'};
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    }; 
-    return this.http.post<any>("http://localhost:4015/login",user,options);
+Login(user:any){
+  const options = {responseType: 'text' as 'json'};
+  
+  return this.http.post<any>("http://localhost:4015/login",user,options);
+}
+
+Registro(user:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/registrar",user,options);
+
+}
+
+VerificarCuenta(id:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>(`http://localhost:4015/EstadoCuenta/${id}`,options);
 }
 }
