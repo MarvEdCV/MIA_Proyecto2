@@ -4,17 +4,12 @@ var app = express();
 var bodyparser = require('body-parser');
 var oracledb = require('oracledb');
 const { sign } = require('jsonwebtoken')
-
 const nodemailer = require('nodemailer')
-
-
-
 app.use(bodyparser.json());
-
 app.use(bodyparser.urlencoded({
     extended: true
 }));
-
+//Configuarcion de Cors
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
@@ -22,29 +17,23 @@ app.use((req, res, next) => {
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
-
-
+//Configuracion de correo electronico de donde se envian los correos de verificacion
 const emailService = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: "spmedranocojulun16@gmail.com",
+        user: "proyectop959@gmail.com",
         secure: false,
-        pass: "sara160519"
+        pass: "PROYECTOMIA2"
         //proyectomia2
     }
 }) 
-
+//Configuracion de la base de datos
 var connAttrs = {
     "user": "DBP2",
     "password": "1234",
     "connectString": "localhost:1521/ORCL18"
 }
-
-
-app.get('/',(req,res)=>{
-    res.send([{message: 'hola nenes'}]);
-});
-
+//Metodo post para el login de la aplicacion
 app.post('/login', async (req, res) => {
     let body = req.body
     let result = await login(body)
@@ -62,17 +51,17 @@ app.post('/login', async (req, res) => {
         }
     }
 })
-
+//Medodo post para registrar nuevos usuarios de tipo CLIENTE.
 app.post('/registrar',async (req,res) =>{
     let body = req.body;
     let result = await create(body)
     if (result.ok) {
         
         // Envía el correo de confirmación
-        const baseUrl = `http://localhost:4200/Verificacion${result.id}`
+        const baseUrl = `http://localhost:4200/Verificacion/${result.id}`
         const data = {
             from: "Eduardo Catalán",
-            to: body.email,
+            to: "marvineduardocv12@gmail.com",
             subject: "Activación de cuenta",
             text: `Link de activación ${baseUrl}`,
             html: `<p>Link de activación <strong><a href="${baseUrl}">Verificar cuenta</a></strong></p>`
@@ -94,10 +83,19 @@ app.post('/registrar',async (req,res) =>{
         return res.status(500).send(result)
     }
 })
-
+//Metodo get para actualizar el estado de la cuenta a confirmado desde correo electronico
+app.get('/EstadoCuenta/:id', async (req, res) => {
+    const id = req.params.id
+    const result = await confirm(id)
+    if (result.ok) {
+        return res.status(200).send(result)
+    }
+    return res.status(500).send(result)
+})
 
 
 //funciones.
+//Funcion para el login
 async function login(req) {
     let con, result
     // consulta a ejecutar
@@ -143,8 +141,7 @@ async function login(req) {
     // Correo o contraseña incorrecta
     return { ok: false, status: 401 }
 }
-
-
+//Funcion para la creacion de usuarios e insersion en la base de datos 
 async function create(req){
     let con, result
     // consulta a ejecutar
@@ -174,6 +171,29 @@ async function create(req){
     }
     return { ok: true, id: result.rows[0][0] }
 }
+//Funcion para actualizacion de campo confirmado en la base de datos.
+async function confirm(id) {
+    let con, result
+    const query = "UPDATE DBP2.USUARIOS set confirmado = 1 WHERE id = :id"
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        result = await con.execute(query, [id], { autoCommit: true })
+    } catch (err) {
+        console.log(`en confirmar -> ${err}`);
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    return { ok: true, result: result.rowsAffected }
+}
+
+//Prueba de consulta.
 app.get('/prueba', function (req, res) {
     "use strict";
 
@@ -188,7 +208,7 @@ app.get('/prueba', function (req, res) {
             }));
             return;
         }
-        connection.execute("SELECT * FROM tipousuario", {}, {
+        connection.execute("SELECT * FROM DBP2.USUARIOS", {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
             if (err) {
@@ -218,9 +238,6 @@ app.get('/prueba', function (req, res) {
         });
     });
 });
-
-
-
 app.listen(4015,'localhost',function(){
     console.log("el servidor esta escuchando desde el puerto 4015 pa :D")
 })
