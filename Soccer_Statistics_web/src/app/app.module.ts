@@ -12,7 +12,6 @@ import { RegistroComponent } from './Componentes/registro/registro.component';
 import { VerificacionComponent } from './Componentes/verificacion/verificacion.component';
 import { AdminComponent } from './Componentes/admin/admin.component';
 import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-olvidada.component';
-import { RecuperacionPassComponent } from './Componentes/recuperacion-pass/recuperacion-pass.component';
 
 
 
@@ -24,8 +23,7 @@ import { RecuperacionPassComponent } from './Componentes/recuperacion-pass/recup
     RegistroComponent,
     AdminComponent,
     ContraOlvidadaComponent,
-    VerificacionComponent,
-    RecuperacionPassComponent
+    VerificacionComponent
   ],
   imports: [
     BrowserModule,
