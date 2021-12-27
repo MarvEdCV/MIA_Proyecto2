@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/Servicios/login.service';
 export class LoginComponent implements OnInit {
   email: string="";
   password: string="";
+  pass: string="PWD$12345$pwd";
 
   constructor(public LoginService: LoginService,private router:Router) { }
   login(){
@@ -28,7 +29,21 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  contra(){
+    const user = {email: this.email, pwd: this.pass};
+    if(this.email.trim().length === 0){
+      alert('El campo debe estar lleno para poder realizar esta accion')
+      return
+    }
+    this.LoginService.RestablecerContra(user).subscribe((data)=>{
+      alert('Se envio contraseña nueva a su email!')
+      console.log(data);
+    })
+  }
+
   ngOnInit(): void {
   }
+
+
 
 }

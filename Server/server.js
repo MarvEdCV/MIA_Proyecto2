@@ -92,7 +92,30 @@ app.get('/EstadoCuenta/:id', async (req, res) => {
     }
     return res.status(500).send(result)
 })
-
+//Metodo post para hacer actualizacion de contrasena olvidada
+app.post('/RestablecerContra', async (req, res)=> {
+    const body = req.body
+    const result = await RestablecerContrasenia(body)
+    if (!result.ok) {
+        return res.status(500).send({ok: false})
+    }
+    const baseUrl= `http://localhost:4200/login`
+    const data = {
+        from: "Eduardo Catalán",
+        to: "marvineduardocv12@gmail.com",
+        subject: "Recuperación de contraseña ",
+        text: `Recuperación de contraseña ${baseUrl}`,
+        html: `<p>Recuperación de contraseña Contraseña Nueva Provisional:PWD$12345$pwd <strong><a href="${baseUrl}">Verificar cuenta</a></strong></p>`
+    }
+    emailService.sendMail(data, (err, inf) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(inf)
+        }
+    })
+    return res.status(200).send({ ok: true })
+})
 
 //funciones.
 //Funcion para el login
@@ -192,9 +215,39 @@ async function confirm(id) {
     }
     return { ok: true, result: result.rowsAffected }
 }
-
+//Funcion para recuperacion de contrasenia por medio de correo
+async function RestablecerContrasenia(req) {
+    let con, result
+    const query = "UPDATE DBP2.USUARIOS set contra=:pwd WHERE email = :email "
+    const select_query = "SELECT id FROM DBP2.USUARIOS where email = :email"
+    const binds = [req.pwd,req.email]
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        await con.execute(query, binds, { autoCommit: true})
+        result = await con.execute(select_query, [req.email])
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    console.log(result.rows)
+    if (result.rows.length >= 1) {
+        
+        return {
+            ok: true
+        }
+    }
+    return { ok: false }
+}
 //Prueba de consulta.
-app.get('/prueba', function (req, res) {
+app.get('/prueba', function (req, res) {    
     "use strict";
 
     oracledb.getConnection(connAttrs, function (err, connection) {

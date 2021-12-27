@@ -25,4 +25,10 @@ VerificarCuenta(id:any){
   const options = {responseType: 'text' as 'json'};
   return this.http.get<any>(`http://localhost:4015/EstadoCuenta/${id}`,options);
 }
+
+RestablecerContra(user:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/RestablecerContra",user,options);
+}
+
 }
