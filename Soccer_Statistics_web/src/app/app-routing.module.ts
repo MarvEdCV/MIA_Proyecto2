@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './Componentes/admin/admin.component';
+import { CargaMasivaComponent } from './Componentes/carga-masiva/carga-masiva.component';
 import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-olvidada.component';
 import { LoginComponent } from './Componentes/login/login.component';
 import { PrincipalComponent } from './Componentes/principal/principal.component';
@@ -32,6 +33,12 @@ const routes: Routes = [
     path:'contra',
     component:ContraOlvidadaComponent
   }
+  ,
+  {
+    path:'carga',
+    component:CargaMasivaComponent
+  }
+  
   
   
 ];
