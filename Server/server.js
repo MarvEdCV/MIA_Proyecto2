@@ -5,6 +5,10 @@ var bodyparser = require('body-parser');
 var oracledb = require('oracledb');
 const { sign } = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
+
+const fileInputName = "/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/prueba.csv";
+let csvToJson = require('convert-csv-to-json');
+
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
     extended: true
@@ -116,7 +120,6 @@ app.post('/RestablecerContra', async (req, res)=> {
     })
     return res.status(200).send({ ok: true })
 })
-
 //funciones.
 //Funcion para el login
 async function login(req) {
@@ -176,6 +179,7 @@ async function create(req){
     // datos a insertar
     const binds = [req.nombre, req.apellido, req.pais,
     req.fecha, req.email, req.pwd, req.foto,req.direccion, new Date(),req.telefono]
+    console.log(binds);
     try {
         con = await oracledb.getConnection(connAttrs)
         await con.execute(insert_query, binds, { autoCommit: true })
@@ -246,6 +250,160 @@ async function RestablecerContrasenia(req) {
     }
     return { ok: false }
 }
+
+//createUsuarios(fileInputName);
+//Estadios Terminado
+async function LlenarEstadios(ruta){
+    let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
+    console.log(json);
+    for (let i=0;i<json.length;i++){
+       const insert_query = "INSERT INTO DBP2.ESTADIOS(PAIS,NOMBRE,FECHA_ING,CAPACIDAD,DIRECCION,ESTADO)" +
+       "VALUES(:pais,:nombre,TO_DATE(:fec,'DD-MM-YYY'),:capacidad,:direccion:estado)"
+        const estadio ={
+            pais:json[i].Pais,
+            nombre:json[i].Nombre,
+            fecha:json[i].Fecha_ing,
+            capacidad:json[i].Capacidad,
+            direccion:json[i].Direccion,
+            estado:json[i].Estado
+        }
+        const binds = [estadio.pais,estadio.nombre,estadio.fecha,estadio.capacidad,estadio.direccion,estadio.estado]
+        try {
+            con = await oracledb.getConnection(connAttrs)
+            await con.execute(insert_query, binds, { autoCommit: true })
+        } catch (err) {
+            console.error(err)
+            return { ok: false, err }
+        } finally {
+            if (con) {
+                con.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+    }
+    return { ok: true} 
+}
+//Equipo terminado.
+async function LlenarEquipo(ruta){
+    let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
+    console.log(json);
+    for (let i=0;i<json.length;i++){
+       const insert_query = "INSERT INTO DBP2.EQUIPO(NOMBRE,FECHA_FUN,PAIS)" +
+       "VALUES(:nombre,TO_DATE(:fec,'DD-MM-YYY'),:pais)"
+        const estadio ={
+            nombre:json[i].Nombre,
+            fecha:json[i].Fecha_Fun,
+            pais:json[i].Pais
+        }
+        const binds = [estadio.nombre,estadio.fecha,estadio.pais]
+        try {
+            con = await oracledb.getConnection(connAttrs)
+            await con.execute(insert_query, binds, { autoCommit: true })
+        } catch (err) {
+            console.error(err)
+            return { ok: false, err }
+        } finally {
+            if (con) {
+                con.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+    }
+    return { ok: true} 
+}
+
+
+
+//PENDIENTE POR LA RELACION CON LA TABLA EQUIPO, PENDIENTE JUGADOR POR SUS DIFERENTES RELACIONES,PENDIENTE COMPETICION POR SUS RELACIONE
+async function LlenarDirectores(ruta){
+    let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
+    console.log(json);
+    for (let i=0;i<json.length;i++){
+       const insert_query = "INSERT INTO DBP2.ESTADIOS(NOMBRES,FECHA_NAC,PAIS,ESTADO,PAIS_EQUIPO,EQUIPO,FECHA_INI,FECHA_FIN)" +
+       "VALUES(:pais,:nombre,TO_DATE(:fec,'DD-MM-YYY'),:capacidad,:direccion:estado)"
+        const estadio ={
+            pais:json[i].Pais,
+            nombre:json[i].Nombre,
+            fecha:json[i].Fecha_ing,
+            capacidad:json[i].Capacidad,
+            direccion:json[i].Direccion,
+            estado:json[i].Estado
+        }
+        const binds = [estadio.pais,estadio.nombre,estadio.fecha,estadio.capacidad,estadio.direccion,estadio.estado]
+        try {
+            con = await oracledb.getConnection(connAttrs)
+            await con.execute(insert_query, binds, { autoCommit: true })
+        } catch (err) {
+            console.error(err)
+            return { ok: false, err }
+        } finally {
+            if (con) {
+                con.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+    }
+    return { ok: true} 
+}
+async function createUsuarios(ruta){
+    let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
+    console.log(json);
+    let con, result
+    for(let i=0; i<json.length;i++){
+        //console.log(json[i].NOMBRE);
+        // consulta a ejecutar
+    const insert_query = "INSERT INTO DBP2.USUARIOS(NOMBRE, APELLIDO, PAIS, fecha_nacimiento," +
+    "email, CONTRA, fotografia,direccion,fecha_registro,telefono) VALUES(" +
+    ":nom, :ape, :pai, TO_DATE(:fec,'DD-MM-YYYY')," +
+    ":email, :pwd, :ft, :direccion,:creacion,:telefono)"
+    const select_query = "SELECT id FROM DBP2.USUARIOS where email = :email"
+    // datos a insertar
+    const usr ={
+        nombre: json[i].NOMBRE, 
+        apellido:json[i].APELLIDO,
+        pais:json[i].PAIS,
+        fecha:json[i].fecha_nacimiento, 
+        email:json[i].email,
+        pwd:json[i].CONTRA,
+        foto:json[i].fotografia,
+        direccion:json[i].direccion,
+        telefono:json[i].telefono
+    }
+    const binds = [usr.nombre, usr.apellido,usr.pais,usr.fecha, usr.email,usr.pwd,usr.foto,usr.direccion, new Date(),usr.telefono]
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        await con.execute(insert_query, binds, { autoCommit: true })
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    }
+    return { ok: true}
+}
+
+
+
+
+
+
+
 //Prueba de consulta.
 app.get('/prueba', function (req, res) {    
     "use strict";
