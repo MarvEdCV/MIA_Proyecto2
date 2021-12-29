@@ -186,7 +186,7 @@ CREATE TABLE partido (
     id_partido          NUMBER NOT NULL,
     fecha               DATE NOT NULL,
     publico             NUMBER NOT NULL,
-    resultado           NUMBER NOT NULL,
+    resultado           VARCHAR2(20 CHAR) NOT NULL,
     estado              VARCHAR2(20 CHAR) NOT NULL,
     estadios_id_estadio NUMBER NOT NULL,
     equipo_id_equipo    NUMBER NOT NULL,
@@ -348,7 +348,5 @@ VALUES
 ('admin','admin','admin','admin@gmail.com',1,1,12345678,'foto','M','31/07/2001','Ciudad','Gratis','Guatemala',SYSDATE);
 
 
-INSERT INTO DBP2.ESTADIOS(PAIS,NOMBRE,FECHA_ING,CAPACIDAD,DIRECCION,ESTADO)
-VALUES('Guatemala','Mateo flores','28/12/2021',1000,'Ciudad','Malo');
 
 
