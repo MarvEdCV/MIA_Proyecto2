@@ -253,12 +253,14 @@ async function RestablecerContrasenia(req) {
 
 //createUsuarios(fileInputName);
 //Estadios Terminado
+
+//LlenarEstadios('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Estadios.csv');
 async function LlenarEstadios(ruta){
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
     console.log(json);
     for (let i=0;i<json.length;i++){
        const insert_query = "INSERT INTO DBP2.ESTADIOS(PAIS,NOMBRE,FECHA_ING,CAPACIDAD,DIRECCION,ESTADO)" +
-       "VALUES(:pais,:nombre,TO_DATE(:fec,'DD-MM-YYY'),:capacidad,:direccion:estado)"
+       "VALUES(:PAIS,:NOMBRE,TO_DATE(:FECHA_ING,'DD-MM-YYYY'),:CAPACIDAD,:DIRECCION:ESTADO)"
         const estadio ={
             pais:json[i].Pais,
             nombre:json[i].Nombre,
@@ -268,9 +270,11 @@ async function LlenarEstadios(ruta){
             estado:json[i].Estado
         }
         const binds = [estadio.pais,estadio.nombre,estadio.fecha,estadio.capacidad,estadio.direccion,estadio.estado]
+        const query = "INSERT INTO DBP2.ESTADIOS(PAIS,NOMBRE,FECHA_ING,CAPACIDAD,DIRECCION,ESTADO)"+
+        `VALUES('${estadio.pais}','${estadio.nombre}',TO_DATE('${estadio.fecha}','DD-MM-YYYY'),'${estadio.capacidad}','${estadio.direccion}','${estadio.estado}')`
         try {
             con = await oracledb.getConnection(connAttrs)
-            await con.execute(insert_query, binds, { autoCommit: true })
+            await con.execute(query, [], { autoCommit: true })
         } catch (err) {
             console.error(err)
             return { ok: false, err }
@@ -287,12 +291,13 @@ async function LlenarEstadios(ruta){
     return { ok: true} 
 }
 //Equipo terminado.
+//LlenarEquipo('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Equipos.csv');
 async function LlenarEquipo(ruta){
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
     console.log(json);
     for (let i=0;i<json.length;i++){
        const insert_query = "INSERT INTO DBP2.EQUIPO(NOMBRE,FECHA_FUN,PAIS)" +
-       "VALUES(:nombre,TO_DATE(:fec,'DD-MM-YYY'),:pais)"
+       "VALUES(:nombre,TO_DATE(:fec,'DD-MM-YYYY'),:pais)"
         const estadio ={
             nombre:json[i].Nombre,
             fecha:json[i].Fecha_Fun,
@@ -317,28 +322,49 @@ async function LlenarEquipo(ruta){
     }
     return { ok: true} 
 }
-
-
-
+//LlenarDirectores('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/DTS.csv');
 //PENDIENTE POR LA RELACION CON LA TABLA EQUIPO, PENDIENTE JUGADOR POR SUS DIFERENTES RELACIONES,PENDIENTE COMPETICION POR SUS RELACIONE
 async function LlenarDirectores(ruta){
+    let result,id;
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
     console.log(json);
     for (let i=0;i<json.length;i++){
-       const insert_query = "INSERT INTO DBP2.ESTADIOS(NOMBRES,FECHA_NAC,PAIS,ESTADO,PAIS_EQUIPO,EQUIPO,FECHA_INI,FECHA_FIN)" +
-       "VALUES(:pais,:nombre,TO_DATE(:fec,'DD-MM-YYY'),:capacidad,:direccion:estado)"
-        const estadio ={
-            pais:json[i].Pais,
-            nombre:json[i].Nombre,
-            fecha:json[i].Fecha_ing,
-            capacidad:json[i].Capacidad,
-            direccion:json[i].Direccion,
-            estado:json[i].Estado
+        
+        const pais = {
+            pais: json[i].Pais_Equipo,
+            nombre: json[i].Equipo
         }
-        const binds = [estadio.pais,estadio.nombre,estadio.fecha,estadio.capacidad,estadio.direccion,estadio.estado]
+        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}' AND PAIS='${pais.pais}'`
+        try{
+            conec = await oracledb.getConnection(connAttrs)
+            result = await conec.execute(select_id_equipo,[])
+            id = result.rows[0][0]
+        }catch(err){
+            console.error(err)
+            return { ok: false, err }
+        }finally{
+            if (conec) {
+                conec.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }       
+        const dt ={
+            nombres:json[i].Nombres,
+            fnac:json[i].Fecha_Nac,
+            pais:json[i].Pais,
+            estado:json[i].Estado,
+            idequipo:id,
+            fini:json[i].Fecha_Ini,
+            ffin:json[i].Fecha_Fin
+        }
+        const insert_query = "INSERT INTO DBP2.DIRECTOR_TECNICO(NOMBRES,FECHA_NAC,PAIS,ESTADO,EQUIPO_ID_EQUIPO,FECHA_INI,FECHA_FIN)" +
+       `VALUES('${dt.nombres}',TO_DATE('${dt.fnac}','DD-MM-YYYY'),'${dt.pais}','${dt.estado}',${dt.idequipo},TO_DATE('${dt.fini}','DD-MM-YYYY'),TO_DATE('${dt.ffin}','DD-MM-YYYY'))`
         try {
             con = await oracledb.getConnection(connAttrs)
-            await con.execute(insert_query, binds, { autoCommit: true })
+            await con.execute(insert_query,[], { autoCommit: true })
         } catch (err) {
             console.error(err)
             return { ok: false, err }
@@ -354,6 +380,122 @@ async function LlenarDirectores(ruta){
     }
     return { ok: true} 
 }
+//LlenarJugadores('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Jugadores.csv')
+async function LlenarJugadores(ruta){
+    let result,id;
+    let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
+    console.log(json);
+    for (let i=0;i<json.length;i++){
+        
+        const pais = {
+            pais: json[i].Pais_Equipo,
+            nombre: json[i].Equipo
+        }
+        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}' AND PAIS='${pais.pais}'`
+        try{
+            conec = await oracledb.getConnection(connAttrs)
+            result = await conec.execute(select_id_equipo,[])
+            id = result.rows[0][0]
+        }catch(err){
+            console.error(err)
+            return { ok: false, err }
+        }finally{
+            if (conec) {
+                conec.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }       
+        const dt ={
+            nombres:json[i].Nombre,
+            fnac:json[i].Fecha_Nac,
+            pais:json[i].Nacionalidad,
+            estado:json[i].Posicion,
+            idequipo:id,
+            fini:json[i].Fecha_Ini,
+            ffin:json[i].Fecha_Fin
+        }
+        const insert_query = "INSERT INTO DBP2.JUGADOR(NOMBRE,FECHA_NAC,NACIONALIDAD,POSICION,EQUIPO_ID_EQUIPO,FECHA_INI,FECHA_FIN)" +
+       `VALUES('${dt.nombres}',TO_DATE('${dt.fnac}','DD-MM-YYYY'),'${dt.pais}','${dt.estado}',${dt.idequipo},TO_DATE('${dt.fini}','DD-MM-YYYY'),TO_DATE('${dt.ffin}','DD-MM-YYYY'))`
+        try {
+            con = await oracledb.getConnection(connAttrs)
+            await con.execute(insert_query,[], { autoCommit: true })
+        } catch (err) {
+            console.error(err)
+            return { ok: false, err }
+        } finally {
+            if (con) {
+                con.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+    }
+    return { ok: true} 
+}
+LlenarCompeticion('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Competicion.csv')
+async function LlenarCompeticion(ruta){
+    let result,id;
+    let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
+    console.log(json);
+    for (let i=0;i<json.length;i++){
+        
+        const pais = {
+            pais: json[i].Pais_Equipo,
+            nombre: json[i].Equipo
+        }
+        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}' AND PAIS='${pais.pais}'`
+        try{
+            conec = await oracledb.getConnection(connAttrs)
+            result = await conec.execute(select_id_equipo,[])
+            id = result.rows[0][0]
+        }catch(err){
+            console.error(err)
+            return { ok: false, err }
+        }finally{
+            if (conec) {
+                conec.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }       
+        const dt ={
+            nombres:json[i].Nombre,
+            anio:json[i].Anio,
+            tipo:json[i].Tipo,
+            campeon:json[i].Campeon,
+            pais:json[i].Pais,
+            idequipo:id
+        }
+        const insert_query = "INSERT INTO DBP2.COMPETICION(NOMBRE,ANIO,TIPO,CAMPEON,PAIS,EQUIPO_ID_EQUIPO)" +
+       `VALUES('${dt.nombres}',${dt.anio},'${dt.tipo}','${dt.campeon}','${dt.pais}','${dt.idequipo}')`
+        try {
+            con = await oracledb.getConnection(connAttrs)
+            await con.execute(insert_query,[], { autoCommit: true })
+        } catch (err) {
+            console.error(err)
+            return { ok: false, err }
+        } finally {
+            if (con) {
+                con.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+    }
+    return { ok: true} 
+}
+
+
+
 async function createUsuarios(ruta){
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
     console.log(json);
