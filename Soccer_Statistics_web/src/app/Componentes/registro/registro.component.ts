@@ -24,7 +24,7 @@ export class RegistroComponent implements OnInit {
   constructor(public LoginService: LoginService,private router:Router) { }
 
   registrar(){
-    const user ={nombre: this.nombre,apellido: this.apellido,pais:this.pais,fecha:this.FechaN,email:this.email,pwd:this.password,foto:this.foto,direccion:this.Direccion,telefono:this.telefono};
+    const user ={nombre: this.nombre,apellido: this.apellido,pais:this.pais,fecha:this.FechaN,email:this.email,pwd:this.password,foto:this.foto,direccion:this.Direccion,telefono:this.telefono,genero:this.genero};
     if (this.nombre.trim().length === 0||
       this.apellido.trim().length === 0 ||
       this.pais.trim().length === 0 ||
@@ -33,7 +33,8 @@ export class RegistroComponent implements OnInit {
       this.password.trim().length === 0 ||
       this.foto.trim().length === 0 ||
       this.Direccion.trim().length === 0 ||
-      this.telefono.trim().length === 0){ 
+      this.telefono.trim().length === 0 ||
+      this.genero.trim().length ===0){ 
         alert('Alguno de los campos se encuentra vacio favor de llenarlo')
       return
       }

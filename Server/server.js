@@ -172,13 +172,13 @@ async function create(req){
     let con, result
     // consulta a ejecutar
     const insert_query = "INSERT INTO DBP2.USUARIOS(NOMBRE, APELLIDO, PAIS, fecha_nacimiento," +
-        "email, CONTRA, fotografia,direccion,fecha_registro,telefono) VALUES(" +
+        "email, CONTRA, fotografia,direccion,fecha_registro,telefono,GENERO) VALUES(" +
         ":nom, :ape, :pai, TO_DATE(:fec,'yyyy-mm-dd')," +
-        ":email, :pwd, :ft, :direccion,:creacion,:telefono)"
+        ":email, :pwd, :ft, :direccion,:creacion,:telefono,:genero)"
     const select_query = "SELECT id FROM DBP2.USUARIOS where email = :email"
     // datos a insertar
     const binds = [req.nombre, req.apellido, req.pais,
-    req.fecha, req.email, req.pwd, req.foto,req.direccion, new Date(),req.telefono]
+    req.fecha, req.email, req.pwd, req.foto,req.direccion, new Date(),req.telefono,req.genero]
     console.log(binds);
     try {
         con = await oracledb.getConnection(connAttrs)
@@ -437,7 +437,7 @@ async function LlenarJugadores(ruta){
     }
     return { ok: true} 
 }
-LlenarCompeticion('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Competicion.csv')
+//LlenarCompeticion('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Competicion.csv')
 async function LlenarCompeticion(ruta){
     let result,id;
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
