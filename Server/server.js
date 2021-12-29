@@ -120,6 +120,71 @@ app.post('/RestablecerContra', async (req, res)=> {
     })
     return res.status(200).send({ ok: true })
 })
+
+/*
+POSTS para realizar la carga masiva!!
+*/
+app.post('/carga-estadios',async(req,res)=>{
+    body = req.body
+    const resultado = await LlenarEstadios(body.ruta);
+    if(!resultado.ok){
+        return res.status(500).send({ok: false})
+    }else{
+        return res.status(500).send({ok:true})
+    }
+    
+})
+app.post('/carga-equipos',async(req,res)=>{
+    body = req.body
+    const resultado = await LlenarEquipo(body.ruta);
+    if(!resultado.ok){
+        return res.status(500).send({ok: false})
+    }else{
+        return res.status(500).send({ok:true})
+    }
+    
+})
+app.post('/carga-directores',async(req,res)=>{
+    body = req.body
+    const resultado = await LlenarDirectores(body.ruta);
+    if(!resultado.ok){
+        return res.status(500).send({ok: false})
+    }else{
+        return res.status(500).send({ok:true})
+    }
+    
+})
+app.post('/carga-jugadores',async(req,res)=>{
+    body = req.body
+    const resultado = await LlenarJugadores(body.ruta);
+    if(!resultado.ok){
+        return res.status(500).send({ok: false})
+    }else{
+        return res.status(500).send({ok:true})
+    }
+    
+})
+app.post('/carga-competicion',async(req,res)=>{
+    body = req.body
+    const resultado = await LlenarCompeticion(body.ruta);
+    if(!resultado.ok){
+        return res.status(500).send({ok: false})
+    }else{
+        return res.status(500).send({ok:true})
+    }
+    
+})
+app.post('/carga-partidos-incidencias',async(req,res)=>{
+    body = req.body
+    const resultado = await LlenarPartidosIncidencias(body.ruta);
+    if(!resultado.ok){
+        return res.status(500).send({ok: false})
+    }else{
+        return res.status(500).send({ok:true})
+    }
+    
+})
+
 //funciones.
 //Funcion para el login
 async function login(req) {
@@ -251,10 +316,14 @@ async function RestablecerContrasenia(req) {
     return { ok: false }
 }
 
-//createUsuarios(fileInputName);
-//Estadios Terminado
-
 //LlenarEstadios('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Estadios.csv');
+//LlenarEquipo('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Equipos.csv');
+//LlenarDirectores('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/DTS.csv');
+//LlenarJugadores('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Jugadores.csv')
+//LlenarCompeticion('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Competicion.csv')
+//LlenarPartidosIncidencias('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/PartidosIncidencias.csv')
+
+
 async function LlenarEstadios(ruta){
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
     console.log(json);
@@ -290,8 +359,7 @@ async function LlenarEstadios(ruta){
     }
     return { ok: true} 
 }
-//Equipo terminado.
-//LlenarEquipo('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Equipos.csv');
+
 async function LlenarEquipo(ruta){
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
     console.log(json);
@@ -322,8 +390,7 @@ async function LlenarEquipo(ruta){
     }
     return { ok: true} 
 }
-//LlenarDirectores('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/DTS.csv');
-//PENDIENTE POR LA RELACION CON LA TABLA EQUIPO, PENDIENTE JUGADOR POR SUS DIFERENTES RELACIONES,PENDIENTE COMPETICION POR SUS RELACIONE
+
 async function LlenarDirectores(ruta){
     let result,id;
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
@@ -380,7 +447,7 @@ async function LlenarDirectores(ruta){
     }
     return { ok: true} 
 }
-//LlenarJugadores('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Jugadores.csv')
+
 async function LlenarJugadores(ruta){
     let result,id;
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
@@ -437,7 +504,7 @@ async function LlenarJugadores(ruta){
     }
     return { ok: true} 
 }
-//LlenarCompeticion('/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/ArchivosEntrada/Competicion.csv')
+
 async function LlenarCompeticion(ruta){
     let result,id;
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
@@ -495,6 +562,89 @@ async function LlenarCompeticion(ruta){
 }
 
 
+async function LlenarPartidosIncidencias(ruta){
+    let id_partido,id_local,id_visita,id_jugador;
+    let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
+    console.log(json);
+    for (let i=0;i<json.length;i++){
+        
+        const pais = {
+            pais_local: json[i].Pais_Local,
+            nombre_local: json[i].Equipo_Local,
+            pais_visita: json[i].Pais_Visita,
+            nombre_visita: json[i].Equipo_Visita,
+            estadio: json[i].Estadio
+        }
+        const select_id_equipo_local = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre_local}' AND PAIS='${pais.pais_local}'`
+        const select_id_equipo_visita = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre_visita}' AND PAIS='${pais.pais_visita}'`
+        const select_estadio = `SELECT ID_ESTADIO FROM DBP2.ESTADIOS WHERE NOMBRE = '${pais.estadio}'`
+        try{
+            conec = await oracledb.getConnection(connAttrs)
+            result_local = await conec.execute(select_id_equipo_local,[])
+            result_visita = await conec.execute(select_id_equipo_visita,[])
+            result_estadio = await conec.execute(select_estadio,[])
+            id_local = result_local.rows[0][0]
+            id_visita = result_visita.rows[0][0]
+            id_estadio = result_estadio.rows[0][0]
+        }catch(err){
+            console.error(err)
+            return { ok: false, err }
+        }finally{
+            if (conec) {
+                conec.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+        
+        const partido ={
+            fecha: json[i].Fecha,
+            publico: json[i].Asistencia,
+            resultado: json[i].Resultado,
+            estado:json[i].Estado,
+            idestadio: id_estadio,
+            idlocal:id_local,
+            idvisitante:id_visita,
+            jugador:json[i].Jugador,
+            incidencia:json[i].Incidencia,
+            minuto:json[i].Minuto
+        }
+        const insert_query = "INSERT INTO DBP2.PARTIDO(FECHA,PUBLICO,RESULTADO,ESTADO,estadios_id_estadio,equipo_id_equipo,equipo_id_equipo2)" +
+       `VALUES(TO_DATE('${partido.fecha}','DD-MM-YYYY'),${partido.publico},'${partido.resultado}','${partido.estado}',${partido.idestadio},${partido.idlocal},${partido.idvisitante})`
+       const select_query = `SELECT ID_PARTIDO FROM DBP2.PARTIDO where FECHA=TO_DATE('${partido.fecha}','DD-MM-YYYY') AND PUBLICO=${partido.publico} AND RESULTADO='${partido.resultado}' AND ESTADO='${partido.estado}' AND estadios_id_estadio=${partido.idestadio} AND equipo_id_equipo=${partido.idlocal} AND equipo_id_equipo2=${partido.idvisitante}`
+       const select_id_jugador = `SELECT ID_JUGADOR FROM DBP2.JUGADOR WHERE NOMBRE = '${partido.jugador}' AND (EQUIPO_ID_EQUIPO=${partido.idlocal} OR EQUIPO_ID_EQUIPO=${partido.idvisitante})`
+       
+        try {
+            con = await oracledb.getConnection(connAttrs)
+            await con.execute(insert_query,[], { autoCommit: true })
+            result_idpartido = await con.execute(select_query,[])
+            result_idjugador = await con.execute(select_id_jugador,[])
+            id_partido = result_idpartido.rows[0][0]
+            id_jugador = result_idjugador.rows[0][0]
+            const insert_incidencia = "INSERT INTO DBP2.PARTIDO_INCIDENCIAS(INCIDENCIA,MINUTO,JUGADOR_ID_JUGADOR,PARTIDO_ID_PARTIDO)"+
+            `VALUES('${partido.incidencia}',${partido.minuto},${id_jugador},${id_partido})`
+            await con.execute(insert_incidencia,[],{ autoCommit: true })
+
+        } catch (err) {
+            console.error(err)
+            return { ok: false, err }
+        } finally {
+            if (con) {
+                con.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+
+
+    }
+
+}
+
 
 async function createUsuarios(ruta){
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
@@ -539,12 +689,6 @@ async function createUsuarios(ruta){
     }
     return { ok: true}
 }
-
-
-
-
-
-
 
 //Prueba de consulta.
 app.get('/prueba', function (req, res) {    
