@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     
     const user = {email: this.email, pwd: this.password};
     this.LoginService.Login(user).subscribe((data)=>{
-        this.router.navigate(['/Registro']);
+        this.router.navigate(['/usuarios']);
         console.log(data);
     },(err)=>{
       if(err.status===403){

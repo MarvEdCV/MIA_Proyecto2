@@ -29,12 +29,12 @@
            </li>
            <li class="nav-item">
             <p class="texto22">Equipos</p>
-            <select name="miselect" [(ngModel)]="Partidoslist" class="combo2">
-                <option [value]="item" *ngFor="let item of Partidoslist">{{item.Partido}}</option>
+            <select name="miselect" [(ngModel)]="selecEquipo" class="combo2">
+                <option [value]="item" *ngFor="let item of ListaEquipos">{{item}}</option>
                 </select>
            </li>
            <li class="nav-item">
-            <button type="button" class="btn btn-secondary"><a class="letra" href="/Principal" >Suscribirse a este Equipo</a></button>
+            <button type="button" class="btn btn-secondary"><a class="letra" (click)="botonprueba()" >Suscribirse a este Equipo</a></button>
           </li>
           <li class="nav-item">
            
@@ -45,7 +45,7 @@
                <p class="texto22">Membresías</p>
            </li>
            <li class="nav-item">
-             <a class="btn btn-dark" role="button" id="boton">Comprar Membresía</a>
+             <a class="btn btn-dark" role="button" id="boton" (click)="Membresia()">Comprar Membresía</a>
            </li>
          
            <li class="nav-item active">

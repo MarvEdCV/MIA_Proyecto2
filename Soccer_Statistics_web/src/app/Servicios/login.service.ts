@@ -61,6 +61,18 @@ LlenarPartido(path:any){
   return this.http.post<any>("http://localhost:4015/carga-partidos-incidencias",path,options);
 }
 
+MostrarEquipos(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/consultar-equipos",options);
+}
 
+Suscribirse(equipo:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/suscribirse",equipo,options);
+}
+ComprarMembrecia(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/membresia",options);
+}
 
 }
