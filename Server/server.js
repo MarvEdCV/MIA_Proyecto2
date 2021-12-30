@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer')
 const fileInputName = "/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/prueba.csv";
 let csvToJson = require('convert-csv-to-json');
 let idActual;
+let idActualEmpleado = 1;
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
     extended: true
@@ -70,6 +71,69 @@ app.post('/registrar',async (req,res) =>{
             subject: "Activación de cuenta",
             text: `Link de activación ${baseUrl}`,
             html: `<p>Link de activación <strong><a href="${baseUrl}">Verificar cuenta</a></strong></p>`
+        }
+        emailService.sendMail(data, (err, inf) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(inf)
+            }
+        })
+        return res.status(200).send({ ok: true })
+    } else {
+        if (result.err.errorNum == 1) {
+            // Correo duplicado
+            return res.status(422).send(result)
+        }
+        // Error imprevisto
+        return res.status(500).send(result)
+    }
+})
+app.post('/registrar-admin',async (req,res) =>{
+    let body = req.body;
+    let result = await createAdmin(body)
+    if (result.ok) {
+        
+        // Envía el correo de confirmación
+        const baseUrl = `http://localhost:4200/login`
+        const data = {
+            from: "Eduardo Catalán",
+            to: "marvineduardocv12@gmail.com",
+            subject: "Credenciales de Administrador/Empleado",
+            text: `Bienvenido ${baseUrl}`,
+            html: `<p>Tu correo es: ${body.email} y tu contrasenia es: ${body.pwd} <strong><a href="${baseUrl}">Iniciar Sesion</a></strong></p>`
+        }
+        emailService.sendMail(data, (err, inf) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(inf)
+            }
+        })
+        return res.status(200).send({ ok: true })
+    } else {
+        if (result.err.errorNum == 1) {
+            // Correo duplicado
+            return res.status(422).send(result)
+        }
+        // Error imprevisto
+        return res.status(500).send(result)
+    }
+})
+
+app.post('/registrar-empleado',async (req,res) =>{
+    let body = req.body;
+    let result = await createEmpleado(body)
+    if (result.ok) {
+        
+        // Envía el correo de confirmación
+        const baseUrl = `http://localhost:4200/login`
+        const data = {
+            from: "Eduardo Catalán",
+            to: "marvineduardocv12@gmail.com",
+            subject: "Credenciales de Administrador/Empleado",
+            text: `Bienvenido ${baseUrl}`,
+            html: `<p>Tu correo es: ${body.email} y tu contrasenia es: ${body.pwd} <strong><a href="${baseUrl}">Iniciar Sesion</a></strong></p>`
         }
         emailService.sendMail(data, (err, inf) => {
             if (err) {
@@ -207,6 +271,13 @@ app.post('/membresia',async(req,res)=>{
     }
     return res.status(500).send(result)
 })
+app.post('/noticias',async(req,res)=>{
+    result = await AddNoticia(req.body)
+    if(result.ok){
+        return res.status(200).send(result)
+    }
+    return res.status(500).send(result)
+})
 //funciones.
 //Funcion para el login
 async function login(req) {
@@ -253,6 +324,61 @@ async function login(req) {
     }
     // Correo o contraseña incorrecta
     return { ok: false, status: 401 }
+}
+
+//aa
+async function createAdmin(req){
+    let con, result
+    // consulta a ejecutar
+    const insert_query = "INSERT INTO DBP2.USUARIOS(NOMBRE, APELLIDO, PAIS, fecha_nacimiento," +
+        "email, CONTRA, fotografia,direccion,fecha_registro,telefono,GENERO,EsAdmin,Confirmado,TIPO_MEMBRECIA) VALUES(" +
+        ":nom, :ape, :pai, TO_DATE(:fec,'yyyy-mm-dd')," +
+        ":email, :pwd, :ft, :direccion,:creacion,:telefono,:genero,1,1,'NA')"
+    const select_query = "SELECT id FROM DBP2.USUARIOS where email = :email"
+    // datos a insertar
+    const binds = [req.nombre, req.apellido, req.pais,
+    req.fecha, req.email, req.pwd, req.foto,req.direccion, new Date(),req.telefono,req.genero]
+    console.log(binds);
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        await con.execute(insert_query, binds, { autoCommit: true })
+        result = await con.execute(select_query, [req.email])
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    return { ok: true, id: result.rows[0][0] }
+}
+
+async function createEmpleado(req){
+    let con, result
+    // consulta a ejecutar
+    const insert_query = "INSERT INTO DBP2.EMPLEADOS(NOMBRE, APELLIDO, EMAIL,CONTRA)" +
+    `VALUES('${req.nombre}','${req.apellido}','${req.email}','${req.pwd}')`
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        await con.execute(insert_query,[], { autoCommit: true })
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    return { ok: true}
 }
 
 //Funcion para la creacion de usuarios e insersion en la base de datos 
@@ -807,7 +933,32 @@ async function ComprarMembresia(){
     }
     return {ok:true}   
 }
-
+async function AddNoticia(req){
+    let con, result,idequiponoti
+    // consulta a ejecutar
+    const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${req.equipo}'`
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        result = await con.execute(select_id_equipo, [])
+        const insert_query = "INSERT INTO DBP2.NOTICIAS(NOTICA,EQUIPO_ID_EQUIPO,EMPLEADOS_ID_EMPLEADO)" +
+        "VALUES(:noti,:equi,:empleado)"
+        idequiponoti = result.rows[0][0]
+        const binds = [req.noticia,idequiponoti,idActualEmpleado] 
+        await con.execute(insert_query,binds, { autoCommit: true })
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    return { ok: true}
+}
 //Prueba de consulta.
 app.get('/prueba', function (req, res) {    
     "use strict";
