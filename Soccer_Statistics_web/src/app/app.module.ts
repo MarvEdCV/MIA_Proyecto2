@@ -15,6 +15,7 @@ import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-ol
 import { CargaMasivaComponent } from './Componentes/carga-masiva/carga-masiva.component';
 import { UsuariosComponent } from './Componentes/usuarios/usuarios.component';
 import { RegAdmEmpComponent } from './Componentes/reg-adm-emp/reg-adm-emp.component';
+import { EmpleadosComponent } from './Componentes/empleados/empleados.component';
 
 
 
@@ -29,7 +30,8 @@ import { RegAdmEmpComponent } from './Componentes/reg-adm-emp/reg-adm-emp.compon
     VerificacionComponent,
     CargaMasivaComponent,
     UsuariosComponent,
-    RegAdmEmpComponent
+    RegAdmEmpComponent,
+    EmpleadosComponent
   ],
   imports: [
     BrowserModule,

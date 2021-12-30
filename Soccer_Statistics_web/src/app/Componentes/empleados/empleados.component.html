@@ -1,0 +1,109 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Soccer Statistics</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-dark">Dark</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <hr size="2px" color="black" />
+  <div>
+   <h1 >EMPLEADOS</h1>
+  </div>
+  <hr size="2px" color="black" />
+
+  <div class="general">
+    <div class="menu">
+     <div class="row" >
+       <div class="col-2" >
+       <nav class ="navbar" > 
+         <ul class="navbar-nav">
+           <li class="nav-item active">
+               <hr size="2px" color="black"  />
+               <p class="texto22">Acciones</p>
+           </li>
+           <li class="nav-item">
+            <button type="button" class="btn btn-secondary"><a class="letra" href="/Principal" >Transferir a un jugador</a></button>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-dark" role="button" id="boton">Transferir a un tecnico a otro equipo</a>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-secondary"><a class="letra" href="/Principal" >Actualizacion de Partidos</a></button>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-dark" role="button" id="boton">Actualizacion Jugador</a>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-secondary"><a class="letra" href="/Principal" >Agregar incidencias</a></button>
+          </li>
+           <li class="nav-item">
+               <hr size="2px" color="black"  />
+               <p class="texto22">Otras opciones</p>
+           </li>
+           <li class="nav-item">
+               <button type="button" class="btn btn-dark">Cerrar Sesión</button>
+             </li>
+             <li class="nav-item">
+               <button type="button" class="btn btn-secondary"><a class="letra" href="/Principal" >Página Principal</a></button>
+             </li>
+             <li class="nav-item">
+               <hr size="2px" color="black"  />
+             </li>
+           <li class="nav-item">
+            <a class="img1"><img src="assets\img\logo.png" width="100px" height="100px"/></a>
+           </li>
+         </ul>
+       </nav>
+       </div>
+       </div>
+    </div>
+    <div >
+        <div class="register">
+            <form class="custom-form" method="post">
+              <table class="tabla2">
+                <tr>
+                    <td>  <input
+                        type="date"
+                        [(ngModel)]="FechaN"
+                        name="fechaN"
+                        placeholder="Fecha Nacimiento"
+                        required="required"
+                        /></td>
+                        
+                </tr>
+                <tr>
+                    <td>  <input
+                        type="equipo"
+                        [(ngModel)]="Equipo"
+                        name="equipo"
+                        placeholder="Equipo"
+                        required="required"
+                        /></td>
+                        
+                </tr>
+                <tr>
+                    <td>
+                        <input style="width: 1270px; height: 300px"
+                        type="noticia"
+                        [(ngModel)]="noticia"
+                        name="noticia"
+                        placeholder="Noticia"
+                        required="required"
+                        />
+                    </td>
+                </tr>
+                   
+            </table>
+             
+              <button type="submit">Registrar Noticia</button>
+            </form>
+            <div class="espacio"></div>
+      
+    </div>
+  </div>
