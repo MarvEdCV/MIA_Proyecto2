@@ -44,6 +44,11 @@ h3 {
     width: 100%;
     text-align: center;
 } 
+.tabla{
+    color: aliceblue;
+    table-layout: fixed;
+    width: 100%;
+} 
 .tabla2{
     table-layout: fixed;
     width: 100%;

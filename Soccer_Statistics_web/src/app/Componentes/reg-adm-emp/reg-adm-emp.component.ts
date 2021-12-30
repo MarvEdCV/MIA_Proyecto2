@@ -18,6 +18,7 @@ export class RegAdmEmpComponent implements OnInit {
   Direccion: any;
   membresia: any;
   pais: any;
+  noticias: any;
 
 
   constructor() { }

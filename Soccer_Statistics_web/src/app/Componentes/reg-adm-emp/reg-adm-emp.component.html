@@ -37,15 +37,7 @@
                   placeholder="Apellidos"
                   required="required"
                   /></td>
-                  <td>
-                      <input
-            type="password"
-              [(ngModel)]="password"
-              name="password"
-              placeholder="Password"
-              required="required"
-            />
-                  </td>
+         
           </tr>
           <tr>
               <td>
@@ -58,61 +50,27 @@
                 />
               </td>
               <td>
-                  <input
-                  type="telefono"
-                  [(ngModel)]="telefono"
-                  name="telefono"
-                  placeholder="Telefono"
-                  required="required"
-                  />
-              </td>
-              <td>
-                  <input
-                  type="foto"
-                  [(ngModel)]="foto"
-                  name="foto"
-                  placeholder="Fotografía"
-                  required="required"
-                  />
-              </td>
-          </tr>
-          <tr>
-              <td>
-                  <select type="genero" name="genero" [(ngModel)]="genero" class="combo">
-                      <option value='F' >F</option>
-                      <option value='M' >M</option>
-                  </select>
-              </td>
-              <td>
-                  <input
-                  type="date"
-                  [(ngModel)]="FechaN"
-                  name="fechaN"
-                  placeholder="Fecha Nacimiento"
-                  required="required"
-                  />
-              </td>
-              <td>
-                  <input
-                  type="direccion"
-                  [(ngModel)]="Direccion"
-                  name="direccion"
-                  placeholder="Direccion"
-                  required="required"
-                  />
-              </td>
+                <input
+      type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Password"
+        required="required"
+      />
+            </td>
+            
              
           </tr>
           <tr>
-             
-              <td colspan="3"> <input
-                  type="pais"
-                  [(ngModel)]="pais"
-                  name="pais"
-                  placeholder="Pais"
-                  required="required"
-                  /></td>
-             
+            <td colspan="2">
+                <input
+                type="noticias"
+                [(ngModel)]="noticias"
+                name="noticas"
+                placeholder="cantidad de Noticias"
+                required="required"
+                />
+            </td>
           </tr>
       </table>
        
