@@ -16,6 +16,8 @@ import { CargaMasivaComponent } from './Componentes/carga-masiva/carga-masiva.co
 import { UsuariosComponent } from './Componentes/usuarios/usuarios.component';
 import { RegAdmEmpComponent } from './Componentes/reg-adm-emp/reg-adm-emp.component';
 import { EmpleadosComponent } from './Componentes/empleados/empleados.component';
+import { ReportesAdmiComponent } from './Componentes/reportes-admi/reportes-admi.component';
+import { RepoEmpComponent } from './Componentes/repo-emp/repo-emp.component';
 
 
 
@@ -31,7 +33,9 @@ import { EmpleadosComponent } from './Componentes/empleados/empleados.component'
     CargaMasivaComponent,
     UsuariosComponent,
     RegAdmEmpComponent,
-    EmpleadosComponent
+    EmpleadosComponent,
+    ReportesAdmiComponent,
+    RepoEmpComponent
   ],
   imports: [
     BrowserModule,
