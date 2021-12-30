@@ -1,4 +1,3 @@
-
 var express = require("express");
 var app = express();
 var bodyparser = require('body-parser');
@@ -8,7 +7,7 @@ const nodemailer = require('nodemailer')
 
 const fileInputName = "/home/eduardo/Escritorio/ArchivosVacas/MIA_Proyecto2/prueba.csv";
 let csvToJson = require('convert-csv-to-json');
-
+let idActual;
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
     extended: true
@@ -41,6 +40,8 @@ var connAttrs = {
 app.post('/login', async (req, res) => {
     let body = req.body
     let result = await login(body)
+    let resultid = await ReturnIdUser(body.email);
+    idActual = resultid;
     if (result.ok) {
         //res.send('confirmado!!')
         return res.status(200).send(result)
@@ -184,7 +185,28 @@ app.post('/carga-partidos-incidencias',async(req,res)=>{
     }
     
 })
+app.get('/consultar-equipos',async(req,res)=>{
+    const result = await consultaEquipos()
+    if(result.ok){
+        return res.status(200).send(result)
+    }
+    return res.status(500).send(result)
+})
+app.post('/suscribirse',async(req,res)=>{
+    result = await Suscribirse(req.body)
+    if(result.ok){
+        return res.status(200).send(result)
+    }
+    return res.status(500).send(result)
 
+})
+app.post('/membresia',async(req,res)=>{
+    result = await ComprarMembresia()
+    if(result.ok){
+        return res.status(200).send(result)
+    }
+    return res.status(500).send(result)
+})
 //funciones.
 //Funcion para el login
 async function login(req) {
@@ -232,6 +254,7 @@ async function login(req) {
     // Correo o contraseña incorrecta
     return { ok: false, status: 401 }
 }
+
 //Funcion para la creacion de usuarios e insersion en la base de datos 
 async function create(req){
     let con, result
@@ -561,7 +584,6 @@ async function LlenarCompeticion(ruta){
     return { ok: true} 
 }
 
-
 async function LlenarPartidosIncidencias(ruta){
     let id_partido,id_local,id_visita,id_jugador;
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
@@ -646,7 +668,6 @@ async function LlenarPartidosIncidencias(ruta){
 
 }
 
-
 async function createUsuarios(ruta){
     let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
     console.log(json);
@@ -689,6 +710,102 @@ async function createUsuarios(ruta){
     }
     }
     return { ok: true}
+}
+
+async function ReturnIdUser(email){
+    let id_user;
+    const select_id_user = `SELECT ID FROM DBP2.USUARIOS WHERE EMAIL='${email}'`
+        try{
+            conec = await oracledb.getConnection(connAttrs)
+            result = await conec.execute(select_id_user,[])
+            id_user = result.rows[0][0]
+        }catch(err){
+            console.error(err)
+            return { ok: false, err }
+        }finally{
+            if (conec) {
+                conec.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+    return{ok:true,id:id_user}
+}
+
+async function consultaEquipos(){
+    let con, result
+    const query = "SELECT * FROM DBP2.EQUIPO"        
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        result = await con.execute(query, [], { autoCommit: true})
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    if (result.rows.length >= 1) {
+              
+        return {
+            ok: true, result:{equipo:result.rows}
+        }
+    }
+    return { ok: false }
+}
+async function Suscribirse(equipo){
+    let conec, result,idequipo
+    const pais = {
+        nombre: equipo.nombre
+    }
+    const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${equipo.nombre}'`
+    try{
+        conec = await oracledb.getConnection(connAttrs)
+        result = await conec.execute(select_id_equipo,[])
+        idequipo = result.rows[0][0]
+        const insert_query = "INSERT INTO DBP2.SUBS_EQUIPOS(USUARIOS_ID,EQUIPO_ID_EQUIPO)"+
+        `VALUES(${idActual.id},${idequipo})`
+        await conec.execute(insert_query,[],{ autoCommit: true })
+    }catch(err){
+        console.error(err)
+        return { ok: false, err }
+    }finally{
+        if (conec) {
+            conec.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    return {ok:true}
+}
+async function ComprarMembresia(){
+    let conec, result,idequipo
+    const insert_query = `UPDATE DBP2.USUARIOS set TIPO_MEMBRECIA = 'PAGO'  WHERE ID=${idActual.id}`
+    try{
+        conec = await oracledb.getConnection(connAttrs)
+        await conec.execute(insert_query,[],{ autoCommit: true })
+    }catch(err){
+        console.error(err)
+        return { ok: false, err }
+    }finally{
+        if (conec) {
+            conec.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    return {ok:true}   
 }
 
 //Prueba de consulta.
