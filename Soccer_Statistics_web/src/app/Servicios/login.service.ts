@@ -19,6 +19,17 @@ Registro(user:any){
   const options = {responseType: 'text' as 'json'};
   return this.http.post<any>("http://localhost:4015/registrar",user,options);
 
+
+}
+RegistroAdmin(user:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/registrar-admin",user,options);
+
+}
+RegistroEmpleado(user:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/registrar-empleado",user,options);
+
 }
 
 VerificarCuenta(id:any){
@@ -74,5 +85,8 @@ ComprarMembrecia(){
   const options = {responseType: 'text' as 'json'};
   return this.http.post<any>("http://localhost:4015/membresia",options);
 }
-
+GenerarNoticia(noticia:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/noticias",noticia,options);
+}
 }
