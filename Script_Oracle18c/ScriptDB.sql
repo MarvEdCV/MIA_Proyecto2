@@ -57,9 +57,9 @@ CREATE TABLE empleados (
     id_empleado      NUMBER NOT NULL,
     nombre           VARCHAR2(50 CHAR) NOT NULL,
     apellido         VARCHAR2(50 CHAR) NOT NULL,
-    cantidadnoticias NUMBER NOT NULL
+	contra           VARCHAR2(20 CHAR) NOT NULL,
+	email            VARCHAR2(100 CHAR) UNIQUE NOT NULL
 );
-
 ALTER TABLE empleados ADD CONSTRAINT empleados_pk PRIMARY KEY ( id_empleado );
 
 CREATE SEQUENCE Secuencia_empleados
