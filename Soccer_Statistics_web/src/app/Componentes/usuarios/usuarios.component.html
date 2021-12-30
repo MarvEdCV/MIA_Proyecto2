@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Soccer Statistics</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-dark">Dark</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <hr size="2px" color="black" />
+  <div>
+   <h1 >USUARIOS</h1>
+  </div>
+  <hr size="2px" color="black" />
+
+  <div class="general">
+    <div class="menu">
+     <div class="row" >
+       <div class="col-2" >
+       <nav class ="navbar" > 
+         <ul class="navbar-nav">
+           <li class="nav-item active">
+               <hr size="2px" color="black"  />
+               <p class="texto22">Suscripciones a Equipos</p>
+           </li>
+           <li class="nav-item">
+            <p class="texto22">Equipos</p>
+            <select name="miselect" [(ngModel)]="Partidoslist" class="combo2">
+                <option [value]="item" *ngFor="let item of Partidoslist">{{item.Partido}}</option>
+                </select>
+           </li>
+           <li class="nav-item">
+            <button type="button" class="btn btn-secondary"><a class="letra" href="/Principal" >Suscribirse a este Equipo</a></button>
+          </li>
+          <li class="nav-item">
+           
+        </li>
+          
+           <li class="nav-item">
+               <hr size="2px" color="black"  />
+               <p class="texto22">Membresías</p>
+           </li>
+           <li class="nav-item">
+             <a class="btn btn-dark" role="button" id="boton">Comprar Membresía</a>
+           </li>
+         
+           <li class="nav-item active">
+             <hr size="2px" color="black"  />
+         </li>
+         <li class="nav-item">
+            <button type="button" class="btn btn-secondary"><a class="letra" href="/Principal" >Actualizar Cuenta</a></button>
+          </li>
+           <li class="nav-item">
+               <hr size="2px" color="black"  />
+               <p class="texto22">Otras opciones</p>
+           </li>
+           <li class="nav-item">
+               <button type="button" class="btn btn-dark">Cerrar Sesión</button>
+             </li>
+             <li class="nav-item">
+               <button type="button" class="btn btn-secondary"><a class="letra" href="/Principal" >Página Principal</a></button>
+             </li>
+             <li class="nav-item">
+               <hr size="2px" color="black"  />
+             </li>
+           <li class="nav-item">
+            <a class="img1"><img src="assets\img\logo.png" width="100px" height="100px"/></a>
+           </li>
+         </ul>
+       </nav>
+       </div>
+       </div>
+    </div>
+   
+   <div class="tablaP">
+       <table class="tablaP">
+           <tr>
+               <td>
+                <table class="table table-sm table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Partido</th>
+                        <th scope="col">Estadio</th>
+                        <th scope="col">Competicion</th>
+                        <th scope="col">Resultado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Part of  Partidoslist">
+                        <th scope="row">{{Part.Partido}}</th>
+                        <td>{{Part.Estadio}}</td>
+                        <td>{{Part.Competicion}}</td>
+                        <td>{{Part.Resultado}}</td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                <div>
+                    <hr size="2px" color="black"  />
+                    <p class="texto22">Área de Noticias</p>
+                   </div>
+               </td>
+           </tr>
+       </table>
+   
+    
+   </div>
+
+  
+     
+  </div>
+  

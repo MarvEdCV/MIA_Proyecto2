@@ -13,6 +13,7 @@ import { VerificacionComponent } from './Componentes/verificacion/verificacion.c
 import { AdminComponent } from './Componentes/admin/admin.component';
 import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-olvidada.component';
 import { CargaMasivaComponent } from './Componentes/carga-masiva/carga-masiva.component';
+import { UsuariosComponent } from './Componentes/usuarios/usuarios.component';
 
 
 
@@ -25,7 +26,8 @@ import { CargaMasivaComponent } from './Componentes/carga-masiva/carga-masiva.co
     AdminComponent,
     ContraOlvidadaComponent,
     VerificacionComponent,
-    CargaMasivaComponent
+    CargaMasivaComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,9 @@ import { CargaMasivaComponent } from './Componentes/carga-masiva/carga-masiva.co
     FormsModule,
     HttpClientModule,
   ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -47,7 +47,7 @@
               <p class="texto22">Reportes Usuarios</p>
           </li>
           <li class="nav-item">
-            <a class="btn btn-dark" href="assets\Paginas\UsuariosSups.html" target="vista" role="button" id="boton">Usuarios Suscritos a X equipo</a>
+            <a class="btn btn-dark" registerView='regView1' href="assets\Paginas\UsuariosSups.html" target="vista" role="button" id="boton">Usuarios Suscritos a X equipo</a>
           </li>
           <li class="nav-item">
             <a class="btn btn-secondary" href="assets\Paginas\UsuariosMem.html" target="vista" role="button" id="boton">Usuario Con o Sin Membresía</a>
@@ -99,6 +99,9 @@
    </div>
   
   <div class="contenedor">
+    <div class="open-card-BG" *ngIf="registerView == 'regView1'">
+      <app-page1-component></app-page1-component>
+ </div>
      <iframe src="admin.component.html" style="width: 1900px; height: 850px" name="vista"></iframe>
   </div>
     

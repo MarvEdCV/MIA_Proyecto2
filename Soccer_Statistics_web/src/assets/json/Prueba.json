@@ -1,0 +1,7 @@
+  [
+    {"Partido": "part1", "Estadio": "Est1", "Competicion": "comp1", "Resultado": "5-2"},
+    {"Partido": "part2", "Estadio": "Est2", "Competicion": "comp2", "Resultado": "5-3"},
+    {"Partido": "part3", "Estadio": "Est3", "Competicion": "comp3", "Resultado": "4-2"},
+    {"Partido": "part4", "Estadio": "Est4", "Competicion": "comp4", "Resultado": "6-2"}
+  ]
+
