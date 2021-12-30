@@ -128,9 +128,9 @@ app.post('/carga-estadios',async(req,res)=>{
     body = req.body
     const resultado = await LlenarEstadios(body.ruta);
     if(!resultado.ok){
-        return res.status(500).send({ok: false})
+        return res.status(422).send({ok: false})
     }else{
-        return res.status(500).send({ok:true})
+        return res.status(200).send({ok:true})
     }
     
 })
@@ -140,7 +140,7 @@ app.post('/carga-equipos',async(req,res)=>{
     if(!resultado.ok){
         return res.status(500).send({ok: false})
     }else{
-        return res.status(500).send({ok:true})
+        return res.status(200).send({ok:true})
     }
     
 })
@@ -150,7 +150,7 @@ app.post('/carga-directores',async(req,res)=>{
     if(!resultado.ok){
         return res.status(500).send({ok: false})
     }else{
-        return res.status(500).send({ok:true})
+        return res.status(200).send({ok:true})
     }
     
 })
@@ -160,7 +160,7 @@ app.post('/carga-jugadores',async(req,res)=>{
     if(!resultado.ok){
         return res.status(500).send({ok: false})
     }else{
-        return res.status(500).send({ok:true})
+        return res.status(200).send({ok:true})
     }
     
 })
@@ -170,7 +170,7 @@ app.post('/carga-competicion',async(req,res)=>{
     if(!resultado.ok){
         return res.status(500).send({ok: false})
     }else{
-        return res.status(500).send({ok:true})
+        return res.status(200).send({ok:true})
     }
     
 })
@@ -180,7 +180,7 @@ app.post('/carga-partidos-incidencias',async(req,res)=>{
     if(!resultado.ok){
         return res.status(500).send({ok: false})
     }else{
-        return res.status(500).send({ok:true})
+        return res.status(200).send({ok:true})
     }
     
 })
@@ -642,6 +642,7 @@ async function LlenarPartidosIncidencias(ruta){
 
 
     }
+    return { ok: true} 
 
 }
 

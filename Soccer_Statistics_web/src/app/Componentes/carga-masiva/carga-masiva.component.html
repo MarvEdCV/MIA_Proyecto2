@@ -25,19 +25,8 @@
               name="estadios"
               placeholder="Archivo Estadios"
               required="required"
-              /> <button type="submit" class="texto2" >Cargar Estadios</button>
+              /> <button type="submit" class="texto2" (click)="CargaEstadios()" >Cargar Estadios</button>
                 </td>
-            </tr>
-            <tr><td [width]="1000"> 
-              <input
-              type="tecnicos"
-              [(ngModel)]="tecnicos"
-              name="tecnicos"
-              placeholder="Archivo Tecnicos"
-              required="required"
-            /> <button type="submit" class="texto2" >Cargar Técnicos</button>
-             </td> 
-              
             </tr>
             <tr><td [width]="1000"> 
                 <input
@@ -46,10 +35,22 @@
                 name="equipo"
                 placeholder="Archivo Equipos"
                 required="required"
-              /> <button type="submit" class="texto2" >Cargar Equipos</button>
+              /> <button type="submit" class="texto2" (click)="CargaEquipos()" >Cargar Equipos</button>
                </td> 
                 
               </tr>
+
+            <tr><td [width]="1000"> 
+              <input
+              type="tecnicos"
+              [(ngModel)]="tecnicos"
+              name="tecnicos"
+              placeholder="Archivo Tecnicos"
+              required="required"
+            /> <button type="submit" class="texto2"(click)="CargaDirectores()" >Cargar Técnicos</button>
+             </td> 
+              
+            </tr>
               <tr><td [width]="1000"> 
                 <input
                 type="jugador"
@@ -57,7 +58,7 @@
                 name="jugador"
                 placeholder="Archivo Jugador"
                 required="required"
-              /> <button type="submit" class="texto2" >Cargar Jugadores</button>
+              /> <button type="submit" class="texto2" (click)="CargaJugadores()" >Cargar Jugadores</button>
                </td> 
                 
               </tr>
@@ -68,18 +69,7 @@
                 name="competicion"
                 placeholder="Archivo Competicion"
                 required="required"
-              /> <button type="submit" class="texto2" >Cargar Competencias</button>
-               </td> 
-                
-              </tr>
-              <tr><td [width]="1000"> 
-                <input
-                type="incidencias"
-                [(ngModel)]="incidencias"
-                name="incidencias"
-                placeholder="Archivo incidencias"
-                required="required"
-              /> <button type="submit" class="texto2" >Cargar Incidencias</button>
+              /> <button type="submit" class="texto2" (click)="CargaCompeticion()" >Cargar Competencias</button>
                </td> 
                 
               </tr>
@@ -90,12 +80,9 @@
                 name="partido"
                 placeholder="Archivo partido"
                 required="required"
-              /> <button type="submit" class="texto2" >Cargar Partidos</button>
+              /> <button type="submit" class="texto2" (click)="CargaPartidos()">Cargar Partidos</button>
                </td> 
                 
               </tr>
         </table>
-       
-        
-       
       </form>

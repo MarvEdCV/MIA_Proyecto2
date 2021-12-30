@@ -31,4 +31,36 @@ RestablecerContra(user:any){
   return this.http.post<any>("http://localhost:4015/RestablecerContra",user,options);
 }
 
+LlenarEstadios(path:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/carga-estadios",path,options);
+}
+
+LlenarTecnicos(path:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/carga-directores",path,options);
+}
+
+LlenarEquipos(path:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/carga-equipos",path,options);
+}
+
+LlenarJugadores(path:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/carga-jugadores",path,options);
+}
+
+LlenarCompeticion(path:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/carga-competicion",path,options);
+}
+
+LlenarPartido(path:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/carga-partidos-incidencias",path,options);
+}
+
+
+
 }
