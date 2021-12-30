@@ -8,8 +8,11 @@ import { LoginComponent } from './Componentes/login/login.component';
 import { PrincipalComponent } from './Componentes/principal/principal.component';
 import { RegAdmEmpComponent } from './Componentes/reg-adm-emp/reg-adm-emp.component';
 import { RegistroComponent } from './Componentes/registro/registro.component';
+import { RepoEmpComponent } from './Componentes/repo-emp/repo-emp.component';
+import { ReportesAdmiComponent } from './Componentes/reportes-admi/reportes-admi.component';
 import { UsuariosComponent } from './Componentes/usuarios/usuarios.component';
 import { VerificacionComponent } from './Componentes/verificacion/verificacion.component';
+
 
 const routes: Routes = [
   {
@@ -55,6 +58,16 @@ const routes: Routes = [
   {
     path:'Empleados',
     component:EmpleadosComponent
+  }
+  ,
+  {
+    path:'Reportes',
+    component:ReportesAdmiComponent
+  }
+  ,
+  {
+    path:'ReportesEmpl',
+    component:RepoEmpComponent
   }
 ];
 

@@ -29,10 +29,22 @@ h3 {
     height: 10px;
     background-color: white;
   }
+  .hr2 {
+    height: 500px;
+    width: 10px;
+    align-items: center;
+    background-color: white;
+  }
 .video{
     text-align: center;
 } 
 .tabla1{
+    color: aliceblue;
+    table-layout: fixed;
+    width: 100%;
+    text-align: center;
+} 
+.tabla{
     color: aliceblue;
     table-layout: fixed;
     width: 100%;
@@ -176,4 +188,7 @@ a{
 .combo2{
     width: 250px;
     height: 48px;
+}
+.tam{
+    width: 10px;
 }
