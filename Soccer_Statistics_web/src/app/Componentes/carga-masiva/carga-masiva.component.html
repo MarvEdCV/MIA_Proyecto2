@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Soccer Statistics</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-dark">Dark</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <h1 >CARGA MASIVA</h1>
+  <hr size="2px" color="black" />
+  <div class="espacio"></div>
+  <div class="login">
+      <form class="custom-form" method="post">
+        <table class="">
+            <tr>
+                <td [width]="1000">
+               <input
+               type="estadios"
+              [(ngModel)]="estadios"
+              name="estadios"
+              placeholder="Archivo Estadios"
+              required="required"
+              /> <button type="submit" class="texto2" >Cargar Estadios</button>
+                </td>
+            </tr>
+            <tr><td [width]="1000"> 
+              <input
+              type="tecnicos"
+              [(ngModel)]="tecnicos"
+              name="tecnicos"
+              placeholder="Archivo Tecnicos"
+              required="required"
+            /> <button type="submit" class="texto2" >Cargar Técnicos</button>
+             </td> 
+              
+            </tr>
+            <tr><td [width]="1000"> 
+                <input
+                type="equipo"
+                [(ngModel)]="equipo"
+                name="equipo"
+                placeholder="Archivo Equipos"
+                required="required"
+              /> <button type="submit" class="texto2" >Cargar Equipos</button>
+               </td> 
+                
+              </tr>
+              <tr><td [width]="1000"> 
+                <input
+                type="jugador"
+                [(ngModel)]="jugador"
+                name="jugador"
+                placeholder="Archivo Jugador"
+                required="required"
+              /> <button type="submit" class="texto2" >Cargar Jugadores</button>
+               </td> 
+                
+              </tr>
+              <tr><td [width]="1000"> 
+                <input
+                type="competicion"
+                [(ngModel)]="competicion"
+                name="competicion"
+                placeholder="Archivo Competicion"
+                required="required"
+              /> <button type="submit" class="texto2" >Cargar Competencias</button>
+               </td> 
+                
+              </tr>
+              <tr><td [width]="1000"> 
+                <input
+                type="incidencias"
+                [(ngModel)]="incidencias"
+                name="incidencias"
+                placeholder="Archivo incidencias"
+                required="required"
+              /> <button type="submit" class="texto2" >Cargar Incidencias</button>
+               </td> 
+                
+              </tr>
+              <tr><td [width]="1000"> 
+                <input
+                type="partido"
+                [(ngModel)]="partido"
+                name="partido"
+                placeholder="Archivo partido"
+                required="required"
+              /> <button type="submit" class="texto2" >Cargar Partidos</button>
+               </td> 
+                
+              </tr>
+        </table>
+       
+        
+       
+      </form>

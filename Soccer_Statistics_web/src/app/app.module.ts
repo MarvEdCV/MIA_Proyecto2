@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ import { RegistroComponent } from './Componentes/registro/registro.component';
 import { VerificacionComponent } from './Componentes/verificacion/verificacion.component';
 import { AdminComponent } from './Componentes/admin/admin.component';
 import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-olvidada.component';
+import { CargaMasivaComponent } from './Componentes/carga-masiva/carga-masiva.component';
 
 
 
@@ -23,7 +24,8 @@ import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-ol
     RegistroComponent,
     AdminComponent,
     ContraOlvidadaComponent,
-    VerificacionComponent
+    VerificacionComponent,
+    CargaMasivaComponent
   ],
   imports: [
     BrowserModule,
