@@ -1,0 +1,229 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Soccer Statistics</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-dark">Dark</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <a href="/Admi" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Regresar Administrador</a>
+  <hr size="2px" color="black" />
+  <div>
+   <h1 >Crear Empleados</h1>
+  </div>
+  <hr size="2px" color="black" />
+  <div class="espacio"></div>
+  <div class="register">
+      <form class="custom-form" method="post">
+        <table class="tabla2">
+          <tr>
+              <td> <input
+                  type="nombre"
+                  [(ngModel)]="nombre"
+                  name="nombre"
+                  placeholder="Nombre"
+                  required="required"
+                  /></td>
+                  
+              <td> <input
+                  type="apellido"
+                  [(ngModel)]="apellido"
+                  name="apellido"
+                  placeholder="Apellidos"
+                  required="required"
+                  /></td>
+                  <td>
+                      <input
+            type="password"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="Password"
+              required="required"
+            />
+                  </td>
+          </tr>
+          <tr>
+              <td>
+                  <input
+                  type="email"
+                  [(ngModel)]="email"
+                  name="email"
+                  placeholder="Email"
+                  required="required"
+                />
+              </td>
+              <td>
+                  <input
+                  type="telefono"
+                  [(ngModel)]="telefono"
+                  name="telefono"
+                  placeholder="Telefono"
+                  required="required"
+                  />
+              </td>
+              <td>
+                  <input
+                  type="foto"
+                  [(ngModel)]="foto"
+                  name="foto"
+                  placeholder="Fotografía"
+                  required="required"
+                  />
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <select type="genero" name="genero" [(ngModel)]="genero" class="combo">
+                      <option value='F' >F</option>
+                      <option value='M' >M</option>
+                  </select>
+              </td>
+              <td>
+                  <input
+                  type="date"
+                  [(ngModel)]="FechaN"
+                  name="fechaN"
+                  placeholder="Fecha Nacimiento"
+                  required="required"
+                  />
+              </td>
+              <td>
+                  <input
+                  type="direccion"
+                  [(ngModel)]="Direccion"
+                  name="direccion"
+                  placeholder="Direccion"
+                  required="required"
+                  />
+              </td>
+             
+          </tr>
+          <tr>
+             
+              <td colspan="3"> <input
+                  type="pais"
+                  [(ngModel)]="pais"
+                  name="pais"
+                  placeholder="Pais"
+                  required="required"
+                  /></td>
+             
+          </tr>
+      </table>
+       
+        <button type="submit">Registrar Empleado</button>
+      </form>
+      <div class="espacio"></div>
+
+  <hr size="2px" color="black" />
+  <div>
+   <h1 >Crear Administradores</h1>
+  </div>
+  <hr size="2px" color="black" />
+  <div class="espacio"></div>
+<div class="register">
+    <form class="custom-form" method="post">
+      <table class="tabla2">
+        <tr>
+            <td> <input
+                type="nombre"
+                [(ngModel)]="nombre"
+                name="nombre"
+                placeholder="Nombre"
+                required="required"
+                /></td>
+                
+            <td> <input
+                type="apellido"
+                [(ngModel)]="apellido"
+                name="apellido"
+                placeholder="Apellidos"
+                required="required"
+                /></td>
+                <td>
+                    <input
+          type="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Password"
+            required="required"
+          />
+                </td>
+        </tr>
+        <tr>
+            <td>
+                <input
+                type="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="Email"
+                required="required"
+              />
+            </td>
+            <td>
+                <input
+                type="telefono"
+                [(ngModel)]="telefono"
+                name="telefono"
+                placeholder="Telefono"
+                required="required"
+                />
+            </td>
+            <td>
+                <input
+                type="foto"
+                [(ngModel)]="foto"
+                name="foto"
+                placeholder="Fotografía"
+                required="required"
+                />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <select type="genero" name="genero" [(ngModel)]="genero" class="combo">
+                    <option value='F' >F</option>
+                    <option value='M' >M</option>
+                </select>
+            </td>
+            <td>
+                <input
+                type="date"
+                [(ngModel)]="FechaN"
+                name="fechaN"
+                placeholder="Fecha Nacimiento"
+                required="required"
+                />
+            </td>
+            <td>
+                <input
+                type="direccion"
+                [(ngModel)]="Direccion"
+                name="direccion"
+                placeholder="Direccion"
+                required="required"
+                />
+            </td>
+           
+        </tr>
+        <tr>
+           
+            <td colspan="3"> <input
+                type="pais"
+                [(ngModel)]="pais"
+                name="pais"
+                placeholder="Pais"
+                required="required"
+                /></td>
+           
+        </tr>
+    </table>
+     
+      <button type="submit">Registrar Administrador</button>
+    </form>
+    <div class="espacio"></div>

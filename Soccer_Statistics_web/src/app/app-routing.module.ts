@@ -5,6 +5,7 @@ import { CargaMasivaComponent } from './Componentes/carga-masiva/carga-masiva.co
 import { ContraOlvidadaComponent } from './Componentes/contra-olvidada/contra-olvidada.component';
 import { LoginComponent } from './Componentes/login/login.component';
 import { PrincipalComponent } from './Componentes/principal/principal.component';
+import { RegAdmEmpComponent } from './Componentes/reg-adm-emp/reg-adm-emp.component';
 import { RegistroComponent } from './Componentes/registro/registro.component';
 import { UsuariosComponent } from './Componentes/usuarios/usuarios.component';
 import { VerificacionComponent } from './Componentes/verificacion/verificacion.component';
@@ -43,6 +44,11 @@ const routes: Routes = [
   {
     path:'usuarios',
     component:UsuariosComponent
+  }
+  ,
+  {
+    path:'crearUsus',
+    component:RegAdmEmpComponent
   }
 ];
 
