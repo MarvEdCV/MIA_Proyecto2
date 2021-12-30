@@ -10,8 +10,6 @@ import partidos from 'src/assets/json/Prueba.json';
 export class UsuariosComponent implements OnInit {
   Partidoslist: any = partidos;
   Equipos:string[]=["hola","que","tal", "estas"];
-  selecEquipo: any;
-
   constructor() { }
 
   ngOnInit(): void {
