@@ -10,12 +10,16 @@ import { LoginService } from 'src/app/Servicios/login.service';
 export class LoginComponent implements OnInit {
   email: string="";
   password: string="";
+
+  emailE: string="";
+  passwordE: string="";
+
+  emailA: string="";
+  passwordA: string="";
   pass: string="PWD$12345$pwd";
 
   constructor(public LoginService: LoginService,private router:Router) { }
   login(){
-
-    
     const user = {email: this.email, pwd: this.password};
     this.LoginService.Login(user).subscribe((data)=>{
         this.router.navigate(['/usuarios']);

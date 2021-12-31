@@ -74,6 +74,96 @@
       </div>
       </div>
       <hr size="2px" color="black" />
-      <h1 >ADMINISTRADORES</h1>
+
+      <h1 >EMPLEADOS</h1>
+      <div class="login">
+        <form class="custom-form" method="post">
+          <h1 class="texto">Inicio de sesión</h1>
+          <table class="">
+              <tr>
+                  <td> <img src="assets\img\p2.png" width="50" height="50"></td>
+                  <td [width]="1000">
+                 <input
+                 type="email"
+                [(ngModel)]="emailE"
+                name="email"
+                placeholder="Email"
+                required="required"
+                />
+                  </td>
+              </tr>
+              <tr>
+                <td> <img src="assets\img\contra.png" width="50" height="50"></td> 
+               <td [width]="1000"> 
+                <input
+                type="password"
+                [(ngModel)]="passwordE"
+                name="password"
+                placeholder="Password"
+                required="required"
+              />
+               </td> 
+                
+              </tr>
+          </table>
+         
+          
+          <button type="submit" class="texto2" (click)="login()">Login</button>
+        </form>
+
+        
+        <div class="espacio"></div>
+        <div class="texto2">
+          <button type="button" class="btn btn-secondary"><a class="texto2" (click)="contra()">Olvide mi contraseña</a></button>
+      </div>
+        <hr size="2px" color="black" />
+        <div class="espacio"></div>
       
+      </div>
+      
+      <h1 >ADMINISTRADORES</h1>
+      <div class="login">
+        <form class="custom-form" method="post">
+          <h1 class="texto">Inicio de sesión</h1>
+          <table class="">
+              <tr>
+                  <td> <img src="assets\img\p2.png" width="50" height="50"></td>
+                  <td [width]="1000">
+                 <input
+                 type="email"
+                [(ngModel)]="emailA"
+                name="email"
+                placeholder="Email"
+                required="required"
+                />
+                  </td>
+              </tr>
+              <tr>
+                <td> <img src="assets\img\contra.png" width="50" height="50"></td> 
+               <td [width]="1000"> 
+                <input
+                type="password"
+                [(ngModel)]="passwordA"
+                name="password"
+                placeholder="Password"
+                required="required"
+              />
+               </td> 
+                
+              </tr>
+          </table>
+         
+          
+          <button type="submit" class="texto2" (click)="login()">Login</button>
+        </form>
+
+        
+        <div class="espacio"></div>
+        <div class="texto2">
+          <button type="button" class="btn btn-secondary"><a class="texto2" (click)="contra()">Olvide mi contraseña</a></button>
+      </div>
+        <hr size="2px" color="black" />
+        <div class="espacio"></div>
+       
+      </div>
 
