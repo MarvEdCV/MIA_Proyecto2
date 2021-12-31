@@ -10,26 +10,24 @@ export class LoginService {
 
 
 Login(user:any){
-  const options = {responseType: 'text' as 'json'};
-  
+  const options = {responseType: 'text' as 'json'}; 
   return this.http.post<any>("http://localhost:4015/login",user,options);
 }
-
+LoginEmpleado(user:any){
+  const options = {responseType: 'text' as 'json'}; 
+  return this.http.post<any>("http://localhost:4015/login-empleado",user,options);
+}
 Registro(user:any){
   const options = {responseType: 'text' as 'json'};
   return this.http.post<any>("http://localhost:4015/registrar",user,options);
-
-
 }
 RegistroAdmin(user:any){
   const options = {responseType: 'text' as 'json'};
   return this.http.post<any>("http://localhost:4015/registrar-admin",user,options);
-
 }
 RegistroEmpleado(user:any){
   const options = {responseType: 'text' as 'json'};
   return this.http.post<any>("http://localhost:4015/registrar-empleado",user,options);
-
 }
 
 VerificarCuenta(id:any){
