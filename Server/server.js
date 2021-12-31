@@ -57,6 +57,25 @@ app.post('/login', async (req, res) => {
         }
     }
 })
+app.post('/login-empleado', async (req, res) => {
+    let body = req.body
+    let result = await loginEmpleado(body)
+    let resultid = await ReturnIdUserEmpleado(body.email);
+    idActual = resultid;
+    if (result.ok) {
+        //res.send('confirmado!!')
+        return res.status(200).send(result)
+    } else {
+        if (result.err) {
+            // Error imprevisto
+            return res.status(500).send(result)
+        } else {
+            // Usuario o contraseña inválidos
+            //res.send('usuario o contra incoicas incorrectas')
+            return res.status(result.status).send({ ok: false })
+        }
+    }
+})
 //Medodo post para registrar nuevos usuarios de tipo CLIENTE.
 app.post('/registrar',async (req,res) =>{
     let body = req.body;
@@ -326,6 +345,43 @@ async function login(req) {
     return { ok: false, status: 401 }
 }
 
+async function loginEmpleado(req) {
+    let con, result
+    // consulta a ejecutar
+    const query = "SELECT EMPLEADOS.ID_EMPLEADO, empleados.CONTRA" +
+        " FROM DBP2.EMPLEADOS " +
+        " WHERE EMPLEADOS.EMAIL = :email"
+    // datos a insertar
+    const binds = [req.email]
+    try {
+        con = await oracledb.getConnection(connAttrs);
+        result = await con.execute(query, binds, { autoCommit: true, maxRows: 1 })
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    if (result.rows.length == 1) {
+        let confirmado = result.rows[0][3]
+        let pwd = result.rows[0][1];
+            if (pwd==req.pwd) {
+                let id = result.rows[0][0]
+                // Credenciales correctas y correo confirmado
+                return { ok: true}
+            }
+               
+    }
+    // Correo o contraseña incorrecta
+    return { ok: false, status: 401 }
+}
+
 //aa
 async function createAdmin(req){
     let con, result
@@ -380,7 +436,6 @@ async function createEmpleado(req){
     }
     return { ok: true}
 }
-
 //Funcion para la creacion de usuarios e insersion en la base de datos 
 async function create(req){
     let con, result
@@ -793,51 +848,6 @@ async function LlenarPartidosIncidencias(ruta){
     return { ok: true} 
 
 }
-
-async function createUsuarios(ruta){
-    let json = csvToJson.fieldDelimiter(',').formatValueByType().latin1Encoding().getJsonFromCsv(ruta);
-    console.log(json);
-    let con, result
-    for(let i=0; i<json.length;i++){
-        //console.log(json[i].NOMBRE);
-        // consulta a ejecutar
-    const insert_query = "INSERT INTO DBP2.USUARIOS(NOMBRE, APELLIDO, PAIS, fecha_nacimiento," +
-    "email, CONTRA, fotografia,direccion,fecha_registro,telefono) VALUES(" +
-    ":nom, :ape, :pai, TO_DATE(:fec,'DD-MM-YYYY')," +
-    ":email, :pwd, :ft, :direccion,:creacion,:telefono)"
-    const select_query = "SELECT id FROM DBP2.USUARIOS where email = :email"
-    // datos a insertar
-    const usr ={
-        nombre: json[i].NOMBRE, 
-        apellido:json[i].APELLIDO,
-        pais:json[i].PAIS,
-        fecha:json[i].fecha_nacimiento, 
-        email:json[i].email,
-        pwd:json[i].CONTRA,
-        foto:json[i].fotografia,
-        direccion:json[i].direccion,
-        telefono:json[i].telefono
-    }
-    const binds = [usr.nombre, usr.apellido,usr.pais,usr.fecha, usr.email,usr.pwd,usr.foto,usr.direccion, new Date(),usr.telefono]
-    try {
-        con = await oracledb.getConnection(connAttrs)
-        await con.execute(insert_query, binds, { autoCommit: true })
-    } catch (err) {
-        console.error(err)
-        return { ok: false, err }
-    } finally {
-        if (con) {
-            con.release((err) => {
-                if (err) {
-                    console.error(err)
-                }
-            })
-        }
-    }
-    }
-    return { ok: true}
-}
-
 async function ReturnIdUser(email){
     let id_user;
     const select_id_user = `SELECT ID FROM DBP2.USUARIOS WHERE EMAIL='${email}'`
@@ -859,6 +869,28 @@ async function ReturnIdUser(email){
         }
     return{ok:true,id:id_user}
 }
+async function ReturnIdUserEmpleado(email){
+    let id_user;
+    const select_id_user = `SELECT ID_EMPLEADO FROM DBP2.EMPLEADOS WHERE EMAIL='${email}'`
+        try{
+            conec = await oracledb.getConnection(connAttrs)
+            result = await conec.execute(select_id_user,[])
+            id_user = result.rows[0][0]
+        }catch(err){
+            console.error(err)
+            return { ok: false, err }
+        }finally{
+            if (conec) {
+                conec.release((err) => {
+                    if (err) {
+                        console.error(err)
+                    }
+                })
+            }
+        }
+    return{ok:true,id:id_user}
+}
+
 
 async function consultaEquipos(){
     let con, result
