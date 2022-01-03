@@ -10,12 +10,20 @@ export class EmpleadosComponent implements OnInit {
   noticia: any;
   FechaN: any;
   Equipo:any;
-
+  selecEquipo:any;
+  ListaEquipos:string[]=[];
+  json:any;
 
   constructor(public LoginService: LoginService,private router:Router) { }
 
   ngOnInit(): void {
-    //AGREGAR PARA QUE SE CARGUEN LOS EQUIPOS YA REGISTRADOS
+    this.LoginService.MostrarEquipos().subscribe((data)=>{
+      this.json = JSON.parse(data);
+      console.log(this.json.result.equipo.length)
+      for(var i=0;i<this.json.result.equipo.length;i++){
+        this.ListaEquipos.push(this.json.result.equipo[i][1]);
+      }
+    })
   }
 
   Noticia(){
@@ -26,7 +34,7 @@ export class EmpleadosComponent implements OnInit {
     console.log(this.Equipo)
     const noticia = {
       noticia:this.noticia,
-      equipo: this.Equipo
+      equipo: this.selecEquipo
     }
     this.LoginService.GenerarNoticia(noticia).subscribe((data)=>{
       console.log(data)

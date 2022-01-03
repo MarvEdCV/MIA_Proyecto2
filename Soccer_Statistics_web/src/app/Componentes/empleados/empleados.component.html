@@ -75,13 +75,9 @@
                         
                 </tr>
                 <tr>
-                    <td>  <input
-                        type="equipo"
-                        [(ngModel)]="Equipo"
-                        name="equipo"
-                        placeholder="Equipo"
-                        required="required"
-                        /></td>
+                  <select name="miselect" [(ngModel)]="selecEquipo"  class="combo2">
+                    <option [value]="item" *ngFor="let item of ListaEquipos">{{item}}</option>
+                </select>
                         
                 </tr>
                 <tr>
