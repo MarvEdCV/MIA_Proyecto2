@@ -61,7 +61,7 @@ app.post('/login-empleado', async (req, res) => {
     let body = req.body
     let result = await loginEmpleado(body)
     let resultid = await ReturnIdUserEmpleado(body.email);
-    idActual = resultid;
+    idActualEmpleado = resultid;
     if (result.ok) {
         //res.send('confirmado!!')
         return res.status(200).send(result)
@@ -1044,7 +1044,7 @@ async function AddNoticia(req){
         const insert_query = "INSERT INTO DBP2.NOTICIAS(NOTICA,EQUIPO_ID_EQUIPO,EMPLEADOS_ID_EMPLEADO)" +
         "VALUES(:noti,:equi,:empleado)"
         idequiponoti = result.rows[0][0]
-        const binds = [req.noticia,idequiponoti,idActualEmpleado] 
+        const binds = [req.noticia,idequiponoti,idActualEmpleado.id] 
         await con.execute(insert_query,binds, { autoCommit: true })
     } catch (err) {
         console.error(err)
