@@ -1392,6 +1392,97 @@ app.post('/usuarios-x-pais', function (req, res) {
         });
     });
 });
+app.get('/empleado-desc', function (req, res) {    
+    "use strict";
+
+    oracledb.getConnection(connAttrs, function (err, connection) {
+        if (err) {
+            // Error connecting to DB
+            res.set('Content-Type', 'application/json');
+            res.status(500).send(JSON.stringify({
+                status: 500,
+                message: "Error connecting to DB",
+                detailed_message: err.message
+            }));
+            return;
+        }   
+        const consulta = ` SELECT EMPLEADOS.NOMBRE, EMPLEADOS.APELLIDO, COUNT(NOTICIAS.EMPLEADOS_ID_EMPLEADO) AS CANT  FROM NOTICIAS, EMPLEADOS  WHERE EMPLEADOS.ID_EMPLEADO=NOTICIAS.EMPLEADOS_ID_EMPLEADO  GROUP BY EMPLEADOS.NOMBRE, EMPLEADOS.APELLIDO ORDER BY COUNT(NOTICIAS.EMPLEADOS_ID_EMPLEADO) DESC`
+        connection.execute(consulta, {}, {
+            outFormat: oracledb.OBJECT // Return the result as Object
+        }, function (err, result) {
+            if (err) {
+                res.set('Content-Type', 'application/json');
+                res.status(500).send(JSON.stringify({
+                    status: 500,
+                    message: "Error getting the dba_tablespaces",
+                    detailed_message: err.message
+                }));
+            } else {
+                res.header('Access-Control-Allow-Origin','*');
+                res.header('Access-Control-Allow-Headers','Content-Type');
+                res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE,OPTIONS');
+                res.contentType('application/json').status(200);
+                res.send(JSON.stringify(result.rows));
+				
+            }
+            // Release the connection
+            connection.release(
+                function (err) {
+                    if (err) {
+                        console.error(err.message);
+                    } else {
+                        console.log("GET /sendTablespace : Connection released");
+                    }
+                });
+        });
+    });
+});
+app.get('/empleado-asc', function (req, res) {    
+    "use strict";
+
+    oracledb.getConnection(connAttrs, function (err, connection) {
+        if (err) {
+            // Error connecting to DB
+            res.set('Content-Type', 'application/json');
+            res.status(500).send(JSON.stringify({
+                status: 500,
+                message: "Error connecting to DB",
+                detailed_message: err.message
+            }));
+            return;
+        }   
+        const consulta = ` SELECT EMPLEADOS.NOMBRE, EMPLEADOS.APELLIDO, COUNT(NOTICIAS.EMPLEADOS_ID_EMPLEADO) AS CANT  FROM NOTICIAS, EMPLEADOS  WHERE EMPLEADOS.ID_EMPLEADO=NOTICIAS.EMPLEADOS_ID_EMPLEADO  GROUP BY EMPLEADOS.NOMBRE, EMPLEADOS.APELLIDO ORDER BY COUNT(NOTICIAS.EMPLEADOS_ID_EMPLEADO) ASC`
+        connection.execute(consulta, {}, {
+            outFormat: oracledb.OBJECT // Return the result as Object
+        }, function (err, result) {
+            if (err) {
+                res.set('Content-Type', 'application/json');
+                res.status(500).send(JSON.stringify({
+                    status: 500,
+                    message: "Error getting the dba_tablespaces",
+                    detailed_message: err.message
+                }));
+            } else {
+                res.header('Access-Control-Allow-Origin','*');
+                res.header('Access-Control-Allow-Headers','Content-Type');
+                res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE,OPTIONS');
+                res.contentType('application/json').status(200);
+                res.send(JSON.stringify(result.rows));
+				
+            }
+            // Release the connection
+            connection.release(
+                function (err) {
+                    if (err) {
+                        console.error(err.message);
+                    } else {
+                        console.log("GET /sendTablespace : Connection released");
+                    }
+                });
+        });
+    });
+});
+
 
 //Prueba de consulta.
 app.get('/prueba', function (req, res) {    
