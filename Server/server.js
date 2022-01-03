@@ -1079,7 +1079,6 @@ app.post('/suscritos-x-equipo', function (req, res) {
         }   
         const consulta = "SELECT DBP2.USUARIOS.NOMBRE, DBP2.USUARIOS.APELLIDO FROM DBP2.EQUIPO JOIN DBP2.SUBS_EQUIPOS ON DBP2.SUBS_EQUIPOS.EQUIPO_ID_EQUIPO = DBP2.EQUIPO.ID_EQUIPO JOIN DBP2.USUARIOS ON DBP2.USUARIOS.ID = DBP2.SUBS_EQUIPOS.USUARIOS_ID "+ 
         `WHERE DBP2.EQUIPO.NOMBRE = '${equipo}'`
-        console.log(consulta);
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
@@ -1127,7 +1126,6 @@ app.post('/users-x-pais', function (req, res) {
         }   
         const consulta = "SELECT USUARIOS.NOMBRE, USUARIOS.APELLIDO FROM USUARIOS "+ 
         `WHERE USUARIOS.PAIS = '${equipo}'`
-        console.log(consulta);
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
@@ -1176,7 +1174,6 @@ app.post('/users-x-genero', function (req, res) {
         }   
         const consulta = "SELECT USUARIOS.NOMBRE, USUARIOS.APELLIDO FROM USUARIOS "+ 
         `WHERE USUARIOS.GENERO = '${genero}'`
-        console.log(consulta);
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
@@ -1225,7 +1222,6 @@ app.post('/users-x-edad', function (req, res) {
         }   
         const consulta = "SELECT USUARIOS.NOMBRE, USUARIOS.APELLIDO, trunc(months_between(to_date(to_char(SYSDATE, 'dd/mm/yyyy'), 'dd/mm/yyyy'), to_date(to_char(USUARIOS.FECHA_NACIMIENTO , 'dd/mm/yyyy'), 'dd/mm/yyyy'))/12) AS EDAD FROM USUARIOS "+ 
         `WHERE trunc(months_between(to_date(to_char(SYSDATE, 'dd/mm/yyyy'), 'dd/mm/yyyy'), to_date(to_char(USUARIOS.FECHA_NACIMIENTO , 'dd/mm/yyyy'), 'dd/mm/yyyy'))/12)>=${numero}`
-        console.log(consulta);
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
@@ -1273,7 +1269,6 @@ app.get('/suscritos-pago', function (req, res) {
             return;
         }   
         const consulta = `SELECT USUARIOS.EMAIL FROM USUARIOS WHERE USUARIOS.TIPO_MEMBRECIA ='PAGO'`
-        console.log(consulta);
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
@@ -1320,7 +1315,6 @@ app.get('/suscritos-gratis', function (req, res) {
             return;
         }   
         const consulta = `SELECT USUARIOS.EMAIL FROM USUARIOS WHERE USUARIOS.TIPO_MEMBRECIA ='GRATIS'`
-        console.log(consulta);
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
@@ -1368,7 +1362,6 @@ app.post('/usuarios-x-pais', function (req, res) {
         }   
         const consulta = "SELECT DBP2.USUARIOS.NOMBRE, DBP2.USUARIOS.APELLIDO FROM DBP2.EQUIPO JOIN DBP2.SUBS_EQUIPOS ON DBP2.SUBS_EQUIPOS.EQUIPO_ID_EQUIPO = DBP2.EQUIPO.ID_EQUIPO JOIN DBP2.USUARIOS ON DBP2.USUARIOS.ID = DBP2.SUBS_EQUIPOS.USUARIOS_ID "+ 
         `WHERE DBP2.EQUIPO.NOMBRE = '${equipo}'`
-        console.log(consulta);
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
