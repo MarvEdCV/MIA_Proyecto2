@@ -115,4 +115,13 @@ Gratis(){
   const options = {responseType: 'text' as 'json'};
   return this.http.get<any>("http://localhost:4015/suscritos-gratis",options);
 }
+
+MasNoticias(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/empleado-desc",options);
+}
+MenosNoticias(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/empleado-asc",options);
+}
 }
