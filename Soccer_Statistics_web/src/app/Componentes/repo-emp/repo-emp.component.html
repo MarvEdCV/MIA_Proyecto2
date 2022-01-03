@@ -43,15 +43,15 @@
                             
                            </tbody>
                          </table>
-                       <button type="button" class="btn btn-secondary">Generar Reporte 1</button>               
+                       <button type="button" class="btn btn-secondary" (click)="Reporte8Y9()">Generar Reporte 1</button>               
         
         </td>
         <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
           <td> <p class="texto22">Empleados que MAS/MENOS noticias han publicado de X Equipo</p>
             <p class="texto22">Seleccione Equipo</p>
-            <select name="miselect"  class="combo2">
-                <option >opciones json</option>
-            </select>
+            <select name="miselect" [(ngModel)]="selecEquipo"  class="combo2">
+              <option [value]="item" *ngFor="let item of ListaEquipos">{{item}}</option>
+          </select>
             <p class="texto22">Empleados con más Noticias Publicadas</p>
             <table class="table table-sm table-dark">
                 <thead>
@@ -89,7 +89,7 @@
                   </tbody>
                 </table>
             
-              <button type="button" class="btn btn-secondary">Generar Reporte 2</button>
+              <button type="button" class="btn btn-secondary" (click)="Reporte9Y10()" >Generar Reporte 2</button>
         
         </td>
           

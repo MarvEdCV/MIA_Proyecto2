@@ -124,4 +124,12 @@ MenosNoticias(){
   const options = {responseType: 'text' as 'json'};
   return this.http.get<any>("http://localhost:4015/empleado-asc",options);
 }
+MasNoticiasxequipo(equipo:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/empleado-desc-xequipo",equipo,options);
+}
+MenosNoticiasxequipo(equipo:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/empleado-asc-xequipo",equipo,options);
+}
 }
