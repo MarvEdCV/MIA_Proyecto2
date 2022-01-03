@@ -74,6 +74,10 @@ MostrarEquipos(){
   const options = {responseType: 'text' as 'json'};
   return this.http.get<any>("http://localhost:4015/consultar-equipos",options);
 }
+MostrarPaises(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/consultar-paises",options);
+}
 
 Suscribirse(equipo:any){
   const options = {responseType: 'text' as 'json'};
@@ -86,5 +90,29 @@ ComprarMembrecia(){
 GenerarNoticia(noticia:any){
   const options = {responseType: 'text' as 'json'};
   return this.http.post<any>("http://localhost:4015/noticias",noticia,options);
+}
+ConsultaSuscripciones(equipo:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/suscritos-x-equipo",equipo,options);  
+}
+ConsultaUsersPorPais(equipo:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/users-x-pais",equipo,options);  
+}
+ConsultaUsersPorGenero(genero:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/users-x-genero",genero,options);  
+}
+ConsultaUsersPorEdad(edad:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/users-x-edad",edad,options);  
+}
+Pago(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/suscritos-pago",options);
+}
+Gratis(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/suscritos-gratis",options);
 }
 }

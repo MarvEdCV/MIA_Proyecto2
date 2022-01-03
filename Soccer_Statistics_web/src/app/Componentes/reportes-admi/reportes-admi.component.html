@@ -8,8 +8,8 @@
       <tr>
           <td> <p class="texto22">Usuarios Suscritos a X equipo</p>
             <p class="texto22">Seleccione Equipo</p>
-            <select name="miselect"  class="combo2">
-                <option >opciones json</option>
+            <select name="miselect" [(ngModel)]="selecEquipo"  class="combo2">
+                <option [value]="item" *ngFor="let item of ListaEquipos">{{item}}</option>
             </select>
                      <table class="table table-sm table-dark">
                          <thead>
@@ -26,7 +26,7 @@
                           
                          </tbody>
                        </table>
-                       <button type="button" class="btn btn-secondary">Generar Reporte 1</button>               
+                       <button type="button" class="btn btn-secondary"(click)="Reporte1()" >Generar Reporte 1</button>               
         
         </td>
         <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
@@ -47,7 +47,7 @@
                  
                 </tbody>
               </table>
-              <button type="button" class="btn btn-secondary">Generar Reporte 2</button>
+              <button type="button" class="btn btn-secondary" (click)="Reporte2()">Generar Reporte 2</button>
         
         </td>
           
@@ -106,8 +106,8 @@
     <tr>
         <td> <p class="texto22">Usuarios de X País</p>
             <p class="texto22">Seleccione País</p>
-            <select name="miselect"  class="combo2">
-                <option >opciones json</option>
+            <select name="miselect2" [(ngModel)]="selecPais" class="combo2">
+                <option [value]="item" *ngFor="let item of ListaPaises">{{item}}</option>
             </select>
                      <table class="table table-sm table-dark">
                          <thead>
@@ -124,17 +124,17 @@
                           
                          </tbody>
                        </table>
-                       <button type="button" class="btn btn-secondary">Generar Reporte 5</button>
+                       <button type="button" class="btn btn-secondary" (click)="Reporte5()">Generar Reporte 5</button>
         
         </td>
         <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
         
         <td> <p class="texto22">Usuarios de X genero</p>
             <p class="texto22">Seleccione Genero</p>
-            <select name="miselect"  class="combo2">
-                <option >F</option>
-                <option >M</option>
-            </select>
+            <select type="genero" name="genero" [(ngModel)]="genero" class="combo">
+              <option value='F' >F</option>
+              <option value='M' >M</option>
+          </select>
                      <table class="table table-sm table-dark">
                          <thead>
                            <tr>
@@ -150,7 +150,7 @@
                           
                          </tbody>
                        </table>
-                       <button type="button" class="btn btn-secondary">Generar Reporte 6</button>
+                       <button type="button" class="btn btn-secondary" (click)="Reporte6()" >Generar Reporte 6</button>
         
         </td>
 
@@ -162,9 +162,9 @@
    
     <tr>
         <td colspan="3"> <p class="texto22">Usuarios con al menos X años de edad</p>
-            <p class="texto22">Seleccione País</p>
+            <p class="texto22">Digite la edad</p>
             <input
-            type="edad"
+            type="number"
             [(ngModel)]="edad"
             name="edad"
             placeholder="Ingrese Edad"
@@ -185,7 +185,7 @@
                           
                          </tbody>
                        </table>
-                       <button type="button" class="btn btn-secondary">Generar Reporte 7</button>
+                       <button type="button" class="btn btn-secondary" (click)="Reporte7()">Generar Reporte 7</button>
         
         </td>
 
