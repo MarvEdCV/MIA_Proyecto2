@@ -19,9 +19,9 @@
                            </tr>
                          </thead>
                          <tbody>
-                           <tr>
-                             <th scope="row">llenar con json</th>
-                             <td>Llenar con json</td>
+                           <tr *ngFor="let Part1 of  jsonR1">
+                             <th scope="row">{{Part1.NOMBRE}}</th>
+                             <td>{{Part1.APELLIDO}}</td>
                            </tr>
                           
                          </tbody>
@@ -36,16 +36,26 @@
                 <thead>
                   <tr>
                     <th scope="col">Con Membresía</th>
-                    <th scope="col">Sin Membresía</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">llenar con json</th>
-                    <td>Llenar con json</td>
+                  <tr *ngFor="let Part21 of  jsonR21">
+                    <td>{{Part21.EMAIL}}</td>
                   </tr>
-                 
                 </tbody>
+              </table>
+              <table class="table table-sm table-dark"> 
+                <thead>
+                  <tr>
+                    <th scope="col">Sin Membresía</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    <tr *ngFor="let Part22 of  jsonR22">
+                    <td >{{Part22.EMAIL}}<br></td>
+                  </tr>
+                  </tbody>
+                 
               </table>
               <button type="button" class="btn btn-secondary" (click)="Reporte2()">Generar Reporte 2</button>
         
@@ -117,9 +127,9 @@
                            </tr>
                          </thead>
                          <tbody>
-                           <tr>
-                             <th scope="row">llenar con json</th>
-                             <td>Llenar con json</td>
+                           <tr *ngFor="let Part5 of  jsonR5">
+                             <td >{{Part5.NOMBRE}}</td>
+                             <td>{{Part5.APELLIDO}}</td>
                            </tr>
                           
                          </tbody>
@@ -143,9 +153,9 @@
                            </tr>
                          </thead>
                          <tbody>
-                           <tr>
-                             <th scope="row">llenar con json</th>
-                             <td>Llenar con json</td>
+                           <tr *ngFor="let Part6 of  jsonR6">
+                             <td>{{Part6.NOMBRE}}</td>
+                             <td>{{Part6.APELLIDO}}</td>
                            </tr>
                           
                          </tbody>
@@ -178,9 +188,9 @@
                            </tr>
                          </thead>
                          <tbody>
-                           <tr>
-                             <th scope="row">llenar con json</th>
-                             <td>Llenar con json</td>
+                           <tr *ngFor="let Part7 of  jsonR7">
+                             <td >{{Part7.NOMBRE}}</td>
+                             <td>{{Part7.APELLIDO}}</td>
                            </tr>
                           
                          </tbody>

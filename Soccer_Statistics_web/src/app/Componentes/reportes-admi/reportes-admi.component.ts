@@ -16,6 +16,12 @@ export class ReportesAdmiComponent implements OnInit {
   json2:any;
   ListaPaises: string[]=[]
   genero:any;
+  jsonR1:any;
+  jsonR21:any;
+  jsonR22:any;
+  jsonR5:any;
+  jsonR6:any;
+  jsonR7:any;
 
   constructor(public LoginService: LoginService,private router:Router) { }
 
@@ -41,6 +47,7 @@ export class ReportesAdmiComponent implements OnInit {
     const equipo = {nombre:this.selecEquipo}
     this.LoginService.ConsultaSuscripciones(equipo).subscribe((data)=>{
       console.log(data);
+      this.jsonR1=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA
     })
   }
@@ -48,10 +55,12 @@ export class ReportesAdmiComponent implements OnInit {
   Reporte2(){
     this.LoginService.Pago().subscribe((data)=>{
       console.log(data);
+      this.jsonR21=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA PAGO
     })
     this.LoginService.Gratis().subscribe((data)=>{
       console.log(data);
+      this.jsonR22=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA GRATIS
     })
   }
@@ -59,6 +68,7 @@ export class ReportesAdmiComponent implements OnInit {
     const pais = {nombre:this.selecPais}
     this.LoginService.ConsultaUsersPorPais(pais).subscribe((data)=>{
       console.log(data);
+      this.jsonR5=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA
     })
   }
@@ -66,6 +76,7 @@ export class ReportesAdmiComponent implements OnInit {
     const genero = {genero:this.genero}
     this.LoginService.ConsultaUsersPorGenero(genero).subscribe((data)=>{
       console.log(data);
+      this.jsonR6=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA
     })  
   }
@@ -74,6 +85,7 @@ export class ReportesAdmiComponent implements OnInit {
     console.log(edad)
     this.LoginService.ConsultaUsersPorEdad(edad).subscribe((data)=>{
       console.log(data);
+      this.jsonR7=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA
     })  
   }
