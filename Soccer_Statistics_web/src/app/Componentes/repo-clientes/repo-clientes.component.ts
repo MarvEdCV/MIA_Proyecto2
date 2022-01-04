@@ -51,4 +51,65 @@ export class RepoCLientesComponent implements OnInit {
     })
   }
 
+  Reporte4(){
+    const competi ={nombre:this.selecCompeticion}
+    this.LoginService.Reporte4(competi).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
+    })
+  }
+  Reporte5(){
+    const competi ={nombre:this.selecPais}
+    this.LoginService.Reporte5(competi).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
+    })
+  }
+  Reporte6(){
+    const competi ={numero:this.anios}
+    this.LoginService.Reporte6(competi).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
+    })
+  }
+  Reporte7(){
+    const competi ={nombre:this.selecPaisE}
+    this.LoginService.Reporte7(competi).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
+    })
+  }
+  Reporte8(){
+    const competi ={numero:this.capacidad}
+    this.LoginService.Reporte8(competi).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
+    })
+  }
+  Reporte9(){
+    const competi ={nombre:this.selecEquipo1}
+    this.LoginService.Reporte9Y17(competi).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
+    })
+  }
+  Reporte17(){
+    const competi ={nombre:this.selecEquipo2}
+    this.LoginService.Reporte9Y17(competi).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
+    })
+  }
+  Reporte15(){
+    const competi ={numero:this.anio}
+    this.LoginService.Reporte15(competi).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
+    })
+  }
+  Reporte12(){
+    this.LoginService.Reporte12().subscribe((data)=>{
+      console.log(data);
+    })
+  }
 }
