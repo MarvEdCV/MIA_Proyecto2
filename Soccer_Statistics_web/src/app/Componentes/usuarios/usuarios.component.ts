@@ -19,6 +19,7 @@ export class UsuariosComponent implements OnInit {
   ListaEstados:string[]=[];
   jsonPartido:any;
   jsonPartidoE:any;
+  jsonNoticias:any;
   constructor(public LoginService: LoginService,private router:Router) { }
 
   ngOnInit(): void {
@@ -70,6 +71,7 @@ export class UsuariosComponent implements OnInit {
   BotonNoticias(){
     this.LoginService.RepoNoticias().subscribe((data)=>{
       console.log(data);
+      this.jsonNoticias=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA PAGO
     })
   }

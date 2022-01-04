@@ -164,13 +164,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr >
-                          <th scope="row">Llenar</th>
-                          <td>llenar</td>
+                        <tr *ngFor="let Part of  jsonNoticias">
+                          <th scope="row">{{Part.NOTICA}}</th>
+                          <td>{{Part.NOMBRE}}</td>
                         </tr>
                        
                       </tbody>
                       </table>
+                      <button type="button" class="btn btn-secondary" (click)="BotonNoticias()" >Ver Noticias</button>
                    </div>
                </td>
            </tr>
