@@ -88,6 +88,10 @@
        <table class="tablaP">
            <tr>
                <td>
+                <select name="estado" [(ngModel)]="selecEstado" class="combo2">
+                  <option [value]="item" *ngFor="let item of ListaEstados">{{item}}</option>
+                  </select>
+                  
                 <table class="table table-sm table-dark">
                     <thead>
                       <tr>
