@@ -86,7 +86,7 @@ app.post('/registrar',async (req,res) =>{
         const baseUrl = `http://localhost:4200/Verificacion/${result.id}`
         const data = {
             from: "Eduardo Catalán",
-            to: "marvineduardocv12@gmail.com",
+            to: body.email,
             subject: "Activación de cuenta",
             text: `Link de activación ${baseUrl}`,
             html: `<p>Link de activación <strong><a href="${baseUrl}">Verificar cuenta</a></strong></p>`
@@ -117,7 +117,7 @@ app.post('/registrar-admin',async (req,res) =>{
         const baseUrl = `http://localhost:4200/login`
         const data = {
             from: "Eduardo Catalán",
-            to: "marvineduardocv12@gmail.com",
+            to: body.email,
             subject: "Credenciales de Administrador/Empleado",
             text: `Bienvenido ${baseUrl}`,
             html: `<p>Tu correo es: ${body.email} y tu contrasenia es: ${body.pwd} <strong><a href="${baseUrl}">Iniciar Sesion</a></strong></p>`
@@ -149,7 +149,7 @@ app.post('/registrar-empleado',async (req,res) =>{
         const baseUrl = `http://localhost:4200/login`
         const data = {
             from: "Eduardo Catalán",
-            to: "marvineduardocv12@gmail.com",
+            to: body.email,
             subject: "Credenciales de Administrador/Empleado",
             text: `Bienvenido ${baseUrl}`,
             html: `<p>Tu correo es: ${body.email} y tu contrasenia es: ${body.pwd} <strong><a href="${baseUrl}">Iniciar Sesion</a></strong></p>`
