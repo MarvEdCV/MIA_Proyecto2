@@ -59,13 +59,13 @@
                            </tr>
                          </thead>
                          <tbody>
-                           <tr>
-                             <td>Llenar</td>
+                           <tr *ngFor="let Part of  jsonR4">
+                             <td>{{Part.NOMBRE}}</td>
                            </tr>
                           
                          </tbody>
                        </table>
-                       <button type="button" class="btn btn-secondary">Generar Reporte 4</button> 
+                       <button type="button" class="btn btn-secondary" (click)=" Reporte4()">Generar Reporte 4</button> 
       </td>
 
   </tr>
@@ -87,13 +87,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Llenar</td>
+                  <tr *ngFor="let Part of  jsonR5">
+                    <td>{{Part.NOMBRE}}</td>
                   </tr>
                  
                 </tbody>
               </table>
-              <button type="button" class="btn btn-secondary">Generar Reporte 5</button> 
+              <button type="button" class="btn btn-secondary" (click)=" Reporte5()">Generar Reporte 5</button> 
     </td>
       <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
       
@@ -114,13 +114,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Llenar</td>
+              <tr *ngFor="let Part of  jsonR6">
+                <td>{{Part.NOMBRE}}</td>
               </tr>
              
             </tbody>
           </table>
-          <button type="button" class="btn btn-secondary">Generar Reporte 6</button> 
+          <button type="button" class="btn btn-secondary" (click)=" Reporte6()">Generar Reporte 6</button> 
           
     </td>
 
@@ -142,13 +142,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Llenar</td>
+                  <tr *ngFor="let Part of  jsonR7">
+                    <td>{{Part.NOMBRE}}</td>
                   </tr>
                  
                 </tbody>
               </table>
-              <button type="button" class="btn btn-secondary">Generar Reporte 7</button> 
+              <button type="button" class="btn btn-secondary" (click)=" Reporte7()">Generar Reporte 7</button> 
         
     </td>
     <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
@@ -171,14 +171,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Llenar</td>
-            <td>Llenar</td>
+          <tr *ngFor="let Part of  jsonR8">
+            <td>{{Part.NOMBRE}}</td>
+            <td>{{Part.CAPACIDAD}}</td>
           </tr>
          
         </tbody>
       </table>
-      <button type="button" class="btn btn-secondary">Generar Reporte 8</button> 
+      <button type="button" class="btn btn-secondary" (click)=" Reporte8()">Generar Reporte 8</button> 
     </td>
 
 </tr>
@@ -201,15 +201,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Llenar</td>
-                <td>Llenar</td>
-                <td>Llenar</td>
+              <tr *ngFor="let Part of  jsonR9">
+                <td>{{Part.NOMBRE}}</td>
+                <td>{{Part.NOMBRE_1}}</td>
+                <td>{{Part.RESULTADO}}</td>
               </tr>
              
             </tbody>
           </table>
-          <button type="button" class="btn btn-secondary">Generar Reporte 9</button> 
+          <button type="button" class="btn btn-secondary" (click)=" Reporte9()">Generar Reporte 9</button> 
         
     </td>
     <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
@@ -238,14 +238,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td >llenar</td>
-                <td>llenar</td>
+              <tr *ngFor="let Part of  jsonR12">
+                <td >{{Part.NOMBRE}}</td>
+                <td>{{Part.INCIDENCIA}}</td>
               </tr>
              
             </tbody>
           </table>
-          <button type="button" class="btn btn-secondary">Generar Reporte 12</button>
+          <button type="button" class="btn btn-secondary" (click)=" Reporte12()">Generar Reporte 12</button>
          
 
     </td>
@@ -288,15 +288,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Llenar</td>
-                <td>Llenar</td>
-                <td>Llenar</td>
+              <tr *ngFor="let Part of  jsonR15">
+                <td>{{Part.NOMBRE}}</td>
+                <td>{{Part.NOMBRE_1}}</td>
+                <td>{{Part.RESULTADO}}</td>
               </tr>
              
             </tbody>
           </table>
-          <button type="button" class="btn btn-secondary">Generar Reporte 15</button> 
+          <button type="button" class="btn btn-secondary" (click)=" Reporte15()">Generar Reporte 15</button> 
     </td>
     <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
     
@@ -324,15 +324,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Llenar</td>
-                <td>Llenar</td>
-                <td>Llenar</td>
+              <tr *ngFor="let Part of  jsonR17">
+                <td>{{Part.NOMBRE}}</td>
+                <td>{{Part.NOMBRE_1}}</td>
+                <td>{{Part.RESULTADO}}</td>
               </tr>
              
             </tbody>
           </table>
-          <button type="button" class="btn btn-secondary">Generar Reporte 17</button> 
+          <button type="button" class="btn btn-secondary" (click)=" Reporte17()">Generar Reporte 17</button> 
     </td>
     <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
     
