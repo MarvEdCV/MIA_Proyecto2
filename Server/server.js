@@ -1891,7 +1891,7 @@ app.post('/reporte7', function (req, res) {
             }));
             return;
         }   
-        const consulta = `SELECT ESTADIOS.NOMBRE FROM ESTADIOS  `+
+        const consulta = `SELECT ESTADIOS.NOMBRE,ESTADIOS.CAPACIDAD FROM ESTADIOS  `+
         ` WHERE ESTADIOS.PAIS = '${pais}'`
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
@@ -1986,7 +1986,7 @@ app.post('/reporte9y17', function (req, res) {
             return;
         }   
         const consulta = `SELECT EQUI1.NOMBRE, EQUI2.NOMBRE, PARTIDO.RESULTADO FROM PARTIDO JOIN EQUIPO EQUI1 ON EQUI1.ID_EQUIPO = PARTIDO.EQUIPO_ID_EQUIPO JOIN EQUIPO EQUI2 ON EQUI2.ID_EQUIPO = PARTIDO.EQUIPO_ID_EQUIPO2 `+
-        ` WHERE EQUI1.NOMBRE = 'Equipo1' OR EQUI2.NOMBRE ='${equipo}'`
+        ` WHERE EQUI1.NOMBRE = '${equipo}' OR EQUI2.NOMBRE ='${equipo}'`
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
         }, function (err, result) {
