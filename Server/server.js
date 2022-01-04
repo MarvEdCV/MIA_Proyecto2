@@ -1891,7 +1891,7 @@ app.post('/reporte7', function (req, res) {
             }));
             return;
         }   
-        const consulta = `SELECT ESTADIOS.NOMBRE,ESTADIOS.CAPACIDAD FROM ESTADIOS  `+
+        const consulta = `SELECT ESTADIOS.NOMBRE FROM ESTADIOS  `+
         ` WHERE ESTADIOS.PAIS = '${pais}'`
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
@@ -1938,7 +1938,7 @@ app.post('/reporte8', function (req, res) {
             }));
             return;
         }   
-        const consulta = `SELECT ESTADIOS.NOMBRE FROM ESTADIOS  `+
+        const consulta = `SELECT ESTADIOS.NOMBRE,ESTADIOS.CAPACIDAD FROM ESTADIOS  `+
         ` WHERE ESTADIOS.CAPACIDAD <=${numero}`
         connection.execute(consulta, {}, {
             outFormat: oracledb.OBJECT // Return the result as Object
