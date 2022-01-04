@@ -22,7 +22,9 @@ export class RepoCLientesComponent implements OnInit {
   json2:any;
   ListaEquipos:string[]=[];
   ListaPaises:string[]=[];
+  ListaPaisesEquipos:string[]=[];
   ListaCompeticiones:string[]=[]; 
+  jso:any;
   jsonR4:any;
   jsonR5:any;
   jsonR6:any;
@@ -42,12 +44,20 @@ export class RepoCLientesComponent implements OnInit {
         this.ListaEquipos.push(this.json.result.equipo[i][1]);
       }
     })
-    this.LoginService.MostrarPaises().subscribe((data)=>{
+    this.LoginService.MostrarPaisesEstadios().subscribe((data)=>{
       console.log(data)
       this.json2 = JSON.parse(data);
       console.log(this.json2.result.equipo.length)
       for(var i=0;i<this.json2.result.equipo.length;i++){
         this.ListaPaises.push(this.json2.result.equipo[i]);
+      }
+    })
+    this.LoginService.MostrarPaisesEquipos().subscribe((data)=>{
+      console.log(data)
+      this.jso = JSON.parse(data);
+      console.log(this.jso.result.equipo.length)
+      for(var i=0;i<this.jso.result.equipo.length;i++){
+        this.ListaPaisesEquipos.push(this.jso.result.equipo[i]);
       }
     })
     this.LoginService.MostrarCompeticiones().subscribe((data)=>{

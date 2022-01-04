@@ -78,6 +78,14 @@ MostrarPaises(){
   const options = {responseType: 'text' as 'json'};
   return this.http.get<any>("http://localhost:4015/consultar-paises",options);
 }
+MostrarPaisesEstadios(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/consultar-paises-estadios",options);
+}
+MostrarPaisesEquipos(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/consultar-paises-equipos",options);
+}
 MostrarEstados(){
   const options = {responseType: 'text' as 'json'};
   return this.http.get<any>("http://localhost:4015/consultar-estados",options);
