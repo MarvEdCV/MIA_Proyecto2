@@ -1,0 +1,343 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Soccer Statistics</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-dark">Dark</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="texto2">
+      <table class="tabla2">
+          <tr>
+              <td><img src="assets\img\logo.png" width="200" height="180"></td>
+              <td><button type="button" class="btn btn-secondary"><a class="texto2" href="/usuarios" >Regresar</a></button></td>
+              <td><img src="assets\img\logo.png" width="200" height="180"></td>
+          </tr>
+      </table>
+    
+</div>
+<h1 >Reportes CLientes</h1>
+
+<hr size="2px" color="black" />
+<table class="tabla1"> 
+    <tr>
+        <td>
+            <p class="texto22">Jugadores o Técnico de X equipo</p>
+           
+             </td>
+      <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+        <td> 
+            <p class="texto22">Jugadores o Técnico mayores a X años</p>
+        </td>
+        
+    </tr>
+    <tr>
+      <td colspan="3"><hr size="2px" color="black" /></td>
+  </tr>
+    <tr>
+      <td>
+       
+        <p class="texto22">Jugadores o Técnico menores a X años</p>  
+    </td>
+      <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+      
+      <td> 
+        <p class="texto22">Equipos que participaron en X competición</p> 
+        <p class="texto22">Seleccione competición</p>
+            <select name="miselect" [(ngModel)]="selecCompeticion"  class="combo2">
+                <option>llenar</option>
+            </select>
+                     <table class="table table-sm table-dark">
+                         <thead>
+                           <tr>
+                             <th scope="col">Nombre Equipo</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <td>Llenar</td>
+                           </tr>
+                          
+                         </tbody>
+                       </table>
+                       <button type="button" class="btn btn-secondary">Generar Reporte 4</button> 
+      </td>
+
+  </tr>
+  <tr>
+      <td colspan="3"><hr size="2px" color="black" /></td>
+  </tr>
+    
+  <tr>
+      <td>
+        <p class="texto22">Equipos de X país</p> 
+        <p class="texto22">Seleccione País</p>
+            <select name="miselect2" [(ngModel)]="selecPais" class="combo2">
+                <option >llenar</option>
+            </select>
+            <table class="table table-sm table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre del Equipo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Llenar</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-secondary">Generar Reporte 5</button> 
+    </td>
+      <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+      
+      <td>
+        <p class="texto22">Equipos con X años de antigüedad</p> 
+        <p class="texto22">Digite los años</p>
+            <input
+            type="number"
+            [(ngModel)]="anios"
+            name="anios"
+            placeholder="Ingrese los años de antigüedad "
+            required="required"
+          />
+          <table class="table table-sm table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Nombre del Equipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Llenar</td>
+              </tr>
+             
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-secondary">Generar Reporte 6</button> 
+          
+    </td>
+
+  </tr>
+  <tr>
+      <td colspan="3"><hr size="2px" color="black" /></td>
+  </tr>
+  <tr>
+    <td>
+        <p class="texto22">Estadios en X país</p> 
+        <p class="texto22">Seleccione País</p>
+            <select name="miselect2" [(ngModel)]="selecPaisE" class="combo2">
+                <option >llenar</option>
+            </select>
+            <table class="table table-sm table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre del Estadio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Llenar</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-secondary">Generar Reporte 7</button> 
+        
+    </td>
+    <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+    
+    <td> 
+        <p class="texto22">Estadios con capacidad menor o igual a X</p>
+        <p class="texto22">Ingrese el número de capacidad</p>
+        <input
+        type="number"
+        [(ngModel)]="capacidad"
+        name="capacidad"
+        placeholder="Ingrese capacidad"
+        required="required"
+      /> 
+      <table class="table table-sm table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Nombre del Estadio</th>
+            <th scope="col">Capacidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Llenar</td>
+            <td>Llenar</td>
+          </tr>
+         
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-secondary">Generar Reporte 8</button> 
+    </td>
+
+</tr>
+<tr>
+    <td colspan="3"><hr size="2px" color="black" /></td>
+</tr>
+<tr>
+    <td>
+        <p class="texto22">Histórico de partidos de X equipo</p>
+        <p class="texto22">Seleccione Equipo</p>
+        <select name="miselect2" [(ngModel)]="selecEquipo1" class="combo2">
+            <option >llenar</option>
+        </select>
+        <table class="table table-sm table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Equipo 1 vs</th>
+                <th scope="col">Equipo 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Llenar</td>
+                <td>Llenar</td>
+              </tr>
+             
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-secondary">Generar Reporte 9</button> 
+        
+    </td>
+    <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+    
+    <td>
+        <p class="texto22">Equipos en los que ha estado o dirigido X técnico o jugador.</p>  
+    </td>
+
+</tr>
+<tr>
+    <td colspan="3"><hr size="2px" color="black" /></td>
+</tr>
+<tr>
+    <td>
+        <p class="texto22">Partidos donde hubo al menos X goles</p>  
+    </td>
+    <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+    
+    <td>
+        <p class="texto22">Jugadores con más X incidencias en Y competición</p>
+        <p class="texto22">Seleccione competición</p>
+        <select name="miselect2" [(ngModel)]="selecCompeticion2" class="combo2">
+            <option >llenar</option>
+        </select> 
+        <table class="table table-sm table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td >llenar</td>
+                <td>llenar</td>
+              </tr>
+             
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-secondary">Generar Reporte 12</button>
+         
+
+    </td>
+
+</tr>
+<tr>
+    <td colspan="3"><hr size="2px" color="black" /></td>
+</tr>
+<tr>
+    <td>
+        <p class="texto22">Jugadores con más X incidencias y Y competiciones de Z año</p> 
+    </td>
+    <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+    
+    <td> 
+        <p class="texto22">Cantidad de X competiciones que ha ganado Y equipo</p>
+    </td>
+
+</tr>
+<tr>
+    <td colspan="3"><hr size="2px" color="black" /></td>
+</tr>
+<tr>
+    <td> 
+        <p class="texto22">Listado de partidos en X año</p>
+        <p class="texto22">Ingrese el año</p>
+            <input
+            type="number"
+            [(ngModel)]="anio"
+            name="anio"
+            placeholder="Ingrese el año"
+            required="required"
+          />
+          <table class="table table-sm table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Equipo 1 vs</th>
+                <th scope="col">Equipo 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Llenar</td>
+                <td>Llenar</td>
+              </tr>
+             
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-secondary">Generar Reporte 15</button> 
+    </td>
+    <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+    
+    <td>
+        <p class="texto22">Listado de partidos entre X equipo contra Y equipo</p> 
+    </td>
+
+</tr>
+<tr>
+    <td colspan="3"><hr size="2px" color="black" /></td>
+</tr>
+<tr>
+    <td>
+        <p class="texto22">Listado de partidos de X equipo</p>  
+        <p class="texto22">Seleccione Equipo</p>
+        <select name="miselect2" [(ngModel)]="selecEquipo2" class="combo2">
+            <option >llenar</option>
+        </select> 
+        <table class="table table-sm table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Equipo 1 vs</th>
+                <th scope="col">Equipo 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Llenar</td>
+                <td>Llenar</td>
+              </tr>
+             
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-secondary">Generar Reporte 17</button> 
+    </td>
+    <td class="tam"><hr size="2px" color="black" class="hr2"/></td>
+    
+    <td> </td>
+
+</tr>
+<tr>
+    <td colspan="3"><hr size="2px" color="black" /></td>
+</tr>
+</table>

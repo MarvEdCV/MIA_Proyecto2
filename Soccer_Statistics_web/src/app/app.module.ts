@@ -18,6 +18,7 @@ import { RegAdmEmpComponent } from './Componentes/reg-adm-emp/reg-adm-emp.compon
 import { EmpleadosComponent } from './Componentes/empleados/empleados.component';
 import { ReportesAdmiComponent } from './Componentes/reportes-admi/reportes-admi.component';
 import { RepoEmpComponent } from './Componentes/repo-emp/repo-emp.component';
+import { RepoCLientesComponent } from './Componentes/repo-clientes/repo-clientes.component';
 
 
 
@@ -35,7 +36,8 @@ import { RepoEmpComponent } from './Componentes/repo-emp/repo-emp.component';
     RegAdmEmpComponent,
     EmpleadosComponent,
     ReportesAdmiComponent,
-    RepoEmpComponent
+    RepoEmpComponent,
+    RepoCLientesComponent
   ],
   imports: [
     BrowserModule,
