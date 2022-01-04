@@ -85,9 +85,12 @@
     </div>
    
    <div class="tablaP">
+    <p class="texto22">Partidos</p>
        <table class="tablaP">
            <tr>
+           
                <td>
+                <p class="texto22">Partidos Filtrados por estados</p>
                 <select name="estado" [(ngModel)]="selecEstado" class="combo2">
                   <option [value]="item" *ngFor="let item of ListaEstados">{{item}}</option>
                   </select>
@@ -95,23 +98,58 @@
                 <table class="table table-sm table-dark">
                     <thead>
                       <tr>
-                        <th scope="col">Partido</th>
+                        <th scope="col">Primer Equipo</th>
+                        <th scope="col">Segundo Equipo</th>
                         <th scope="col">Estadio</th>
-                        <th scope="col">Competicion</th>
+                        <th scope="col">Publico</th>
                         <th scope="col">Resultado</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let Part of  Partidoslist">
-                        <th scope="row">{{Part.Partido}}</th>
-                        <td>{{Part.Estadio}}</td>
-                        <td>{{Part.Competicion}}</td>
-                        <td>{{Part.Resultado}}</td>
+                      <tr *ngFor="let Part of  jsonPartidoE">
+                        <th scope="row">{{Part.NOMBRE}}</th>
+                        <td>{{Part.NOMBRE_1}}</td>
+                        <td>{{Part.NOMBRE_2}}</td>
+                        <td>{{Part.PUBLICO}}</td>
+                        <td>{{Part.RESULTADO}}</td>
                       </tr>
                      
                     </tbody>
                   </table>
+                  <button type="button" class="btn btn-secondary" (click)="PartidosEstado()" >ver Partidos filtrados</button>
                </td>
+           </tr>
+           <tr>
+            <hr size="2px" color="black"  />
+           </tr>
+           <tr>
+            
+            <td>
+              <p class="texto22">Todos los partidos</p>
+              <table class="table table-sm table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">Primer Equipo</th>
+                      <th scope="col">Segundo Equipo</th>
+                      <th scope="col">Estadio</th>
+                      <th scope="col">Publico</th>
+                      <th scope="col">Resultado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let Part of  jsonPartido">
+                      <th scope="row">{{Part.NOMBRE}}</th>
+                      <td>{{Part.NOMBRE_1}}</td>
+                      <td>{{Part.NOMBRE_2}}</td>
+                      <td>{{Part.PUBLICO}}</td>
+                      <td>{{Part.RESULTADO}}</td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+                <button type="button" class="btn btn-secondary" (click)="Partidos()" >Ver todos los partidos</button>
+             </td>
+
            </tr>
            <tr>
                <td>
@@ -122,6 +160,8 @@
                </td>
            </tr>
        </table>
+      
+       
    
     
    </div>

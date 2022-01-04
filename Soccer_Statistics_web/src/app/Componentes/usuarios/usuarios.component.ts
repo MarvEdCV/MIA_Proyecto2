@@ -17,6 +17,8 @@ export class UsuariosComponent implements OnInit {
   selecEquipo: any;
   selecEstado: any;
   ListaEstados:string[]=[];
+  jsonPartido:any;
+  jsonPartidoE:any;
   constructor(public LoginService: LoginService,private router:Router) { }
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class UsuariosComponent implements OnInit {
   Partidos(){
     this.LoginService.Partidos().subscribe((data)=>{
       console.log(data);
+      this.jsonPartido=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA PAGO
     })
   }
@@ -63,6 +66,7 @@ export class UsuariosComponent implements OnInit {
     const estado = {estado:this.selecEstado}
     this.LoginService.PartidosEstado(estado).subscribe((data)=>{
       console.log(data);
+      this.jsonPartidoE=JSON.parse(data);
       //EN DATA ESTA EL JSON CON LA CONSULTA
     })
   }
