@@ -345,8 +345,4 @@ ALTER TABLE subs_equipos
 INSERT INTO
 USUARIOS (nombre,apellido,contra,email,confirmado,EsAdmin,telefono,fotografia,genero,FECHA_NACIMIENTO ,DIRECCION,TIPO_MEMBRECIA,pais,FECHA_REGISTRO)
 VALUES
-('admin','admin','admin','admin@gmail.com',1,1,12345678,'foto','M','31/07/2001','Ciudad','Gratis','Guatemala',SYSDATE);
-
-
-
-
+('admin','admin','admin','admin@gmail.com',1,1,12345678,'foto','M','31/07/2001','Ciudad','NA','Guatemala',SYSDATE);
