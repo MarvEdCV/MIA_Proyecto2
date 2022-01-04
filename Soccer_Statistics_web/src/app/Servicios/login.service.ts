@@ -149,4 +149,40 @@ PartidosEstado(estado:any){
   const options = {responseType: 'text' as 'json'};
   return this.http.post<any>("http://localhost:4015/partidos-estado",estado,options);
 }
+Reporte4(obj:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/reporte4",obj,options);
+}
+Reporte6(obj:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/reporte6",obj,options);
+}
+Reporte7(obj:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/reporte7",obj,options);
+}
+Reporte8(obj:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/reporte8",obj,options);
+}
+Reporte9Y17(obj:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/reporte9y17",obj,options);
+}
+Reporte5(obj:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/reporte5",obj,options);
+}
+Reporte15(obj:any){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.post<any>("http://localhost:4015/reporte15",obj,options);
+}
+Reporte12(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/reporte12",options);
+}
+RepoNoticias(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/repo-noticias",options);
+}
 }
