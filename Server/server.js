@@ -632,7 +632,7 @@ async function LlenarDirectores(ruta){
             pais: json[i].Pais_Equipo,
             nombre: json[i].Equipo
         }
-        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}' AND PAIS='${pais.pais}'`
+        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}'`
         try{
             conec = await oracledb.getConnection(connAttrs)
             result = await conec.execute(select_id_equipo,[])
@@ -689,7 +689,7 @@ async function LlenarJugadores(ruta){
             pais: json[i].Pais_Equipo,
             nombre: json[i].Equipo
         }
-        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}' AND PAIS='${pais.pais}'`
+        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}'`
         try{
             conec = await oracledb.getConnection(connAttrs)
             result = await conec.execute(select_id_equipo,[])
@@ -746,7 +746,7 @@ async function LlenarCompeticion(ruta){
             pais: json[i].Pais_Equipo,
             nombre: json[i].Equipo
         }
-        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}' AND PAIS='${pais.pais}'`
+        const select_id_equipo = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre}'`
         try{
             conec = await oracledb.getConnection(connAttrs)
             result = await conec.execute(select_id_equipo,[])
@@ -805,8 +805,8 @@ async function LlenarPartidosIncidencias(ruta){
             nombre_visita: json[i].Equipo_Visita,
             estadio: json[i].Estadio
         }
-        const select_id_equipo_local = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre_local}' AND PAIS='${pais.pais_local}'`
-        const select_id_equipo_visita = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre_visita}' AND PAIS='${pais.pais_visita}'`
+        const select_id_equipo_local = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre_local}'`
+        const select_id_equipo_visita = `SELECT ID_EQUIPO FROM DBP2.EQUIPO WHERE NOMBRE='${pais.nombre_visita}'`
         const select_estadio = `SELECT ID_ESTADIO FROM DBP2.ESTADIOS WHERE NOMBRE = '${pais.estadio}'`
         try{
             conec = await oracledb.getConnection(connAttrs)
