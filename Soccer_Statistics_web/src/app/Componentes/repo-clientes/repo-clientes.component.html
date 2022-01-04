@@ -50,7 +50,7 @@
         <p class="texto22">Equipos que participaron en X competición</p> 
         <p class="texto22">Seleccione competición</p>
             <select name="miselect" [(ngModel)]="selecCompeticion"  class="combo2">
-                <option>llenar</option>
+              <option [value]="item" *ngFor="let item of ListaCompeticiones">{{item}}</option>
             </select>
                      <table class="table table-sm table-dark">
                          <thead>
@@ -78,7 +78,7 @@
         <p class="texto22">Equipos de X país</p> 
         <p class="texto22">Seleccione País</p>
             <select name="miselect2" [(ngModel)]="selecPais" class="combo2">
-                <option >llenar</option>
+              <option [value]="item" *ngFor="let item of ListaPaises">{{item}}</option>
             </select>
             <table class="table table-sm table-dark">
                 <thead>
@@ -133,7 +133,7 @@
         <p class="texto22">Estadios en X país</p> 
         <p class="texto22">Seleccione País</p>
             <select name="miselect2" [(ngModel)]="selecPaisE" class="combo2">
-                <option >llenar</option>
+              <option [value]="item" *ngFor="let item of ListaPaises">{{item}}</option>
             </select>
             <table class="table table-sm table-dark">
                 <thead>
@@ -190,7 +190,7 @@
         <p class="texto22">Histórico de partidos de X equipo</p>
         <p class="texto22">Seleccione Equipo</p>
         <select name="miselect2" [(ngModel)]="selecEquipo1" class="combo2">
-            <option >llenar</option>
+          <option [value]="item" *ngFor="let item of ListaEquipos">{{item}}</option>
         </select>
         <table class="table table-sm table-dark">
             <thead>
@@ -313,7 +313,7 @@
         <p class="texto22">Listado de partidos de X equipo</p>  
         <p class="texto22">Seleccione Equipo</p>
         <select name="miselect2" [(ngModel)]="selecEquipo2" class="combo2">
-            <option >llenar</option>
+          <option [value]="item" *ngFor="let item of ListaEquipos">{{item}}</option>
         </select> 
         <table class="table table-sm table-dark">
             <thead>

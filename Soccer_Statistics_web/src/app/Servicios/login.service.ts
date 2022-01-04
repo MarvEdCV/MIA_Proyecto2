@@ -82,6 +82,10 @@ MostrarEstados(){
   const options = {responseType: 'text' as 'json'};
   return this.http.get<any>("http://localhost:4015/consultar-estados",options);
 }
+MostrarCompeticiones(){
+  const options = {responseType: 'text' as 'json'};
+  return this.http.get<any>("http://localhost:4015/consultar-competiciones",options);
+}
 Suscribirse(equipo:any){
   const options = {responseType: 'text' as 'json'};
   return this.http.post<any>("http://localhost:4015/suscribirse",equipo,options);

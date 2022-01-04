@@ -37,11 +37,7 @@ export class UsuariosComponent implements OnInit {
         console.log(this.json2.result.equipo[i][0])
         this.ListaEstados.push(this.json2.result.equipo[i][0]);
       }
-    })
-    
-    
-
-    
+    })    
   }
   botonprueba(){
     const equipo = {nombre:this.selecEquipo}
@@ -64,6 +60,7 @@ export class UsuariosComponent implements OnInit {
   }
   PartidosEstado(){
     const estado = {estado:this.selecEstado}
+    console.log(estado)
     this.LoginService.PartidosEstado(estado).subscribe((data)=>{
       console.log(data);
       this.jsonPartidoE=JSON.parse(data);
