@@ -67,5 +67,11 @@ export class UsuariosComponent implements OnInit {
       //EN DATA ESTA EL JSON CON LA CONSULTA
     })
   }
+  BotonNoticias(){
+    this.LoginService.RepoNoticias().subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA PAGO
+    })
+  }
 
 }
