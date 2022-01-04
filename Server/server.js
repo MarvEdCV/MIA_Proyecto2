@@ -282,6 +282,20 @@ app.get('/consultar-paises',async(req,res)=>{
     }
     return res.status(500).send(result)
 })
+app.get('/consultar-paises-estadios',async(req,res)=>{
+    const result = await consultaPaisesEstadios()
+    if(result.ok){
+        return res.status(200).send(result)
+    }
+    return res.status(500).send(result)
+})
+app.get('/consultar-paises-equipos',async(req,res)=>{
+    const result = await consultaPaisesEquipos()
+    if(result.ok){
+        return res.status(200).send(result)
+    }
+    return res.status(500).send(result)
+})
 app.get('/consultar-estados',async(req,res)=>{
     const result = await consultaEstados()
     if(result.ok){
@@ -948,6 +962,58 @@ async function consultaEquipos(){
 async function consultaPaises(){
     let con, result
     const query = "SELECT DISTINCT USUARIOS.PAIS FROM DBP2.USUARIOS"        
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        result = await con.execute(query, [], { autoCommit: true})
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    if (result.rows.length >= 1) {
+              
+        return {
+            ok: true, result:{equipo:result.rows}
+        }
+    }
+    return { ok: false }
+}
+async function consultaPaisesEstadios(){
+    let con, result
+    const query = "SELECT DISTINCT ESTADIOS.PAIS FROM DBP2.ESTADIOS"        
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        result = await con.execute(query, [], { autoCommit: true})
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    if (result.rows.length >= 1) {
+              
+        return {
+            ok: true, result:{equipo:result.rows}
+        }
+    }
+    return { ok: false }
+}
+async function consultaPaisesEquipos(){
+    let con, result
+    const query = "SELECT DISTINCT EQUIPO.PAIS FROM DBP2.EQUIPO"        
     try {
         con = await oracledb.getConnection(connAttrs)
         result = await con.execute(query, [], { autoCommit: true})
