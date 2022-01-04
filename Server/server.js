@@ -282,6 +282,13 @@ app.get('/consultar-paises',async(req,res)=>{
     }
     return res.status(500).send(result)
 })
+app.get('/consultar-estados',async(req,res)=>{
+    const result = await consultaEstados()
+    if(result.ok){
+        return res.status(200).send(result)
+    }
+    return res.status(500).send(result)
+})
 app.get('/sus-x-equipo',async(req,res)=>{
     const result = await Consulta1()
     if(result.ok){
@@ -934,7 +941,33 @@ async function consultaEquipos(){
 }
 async function consultaPaises(){
     let con, result
-    const query = "SELECT USUARIOS.PAIS FROM DBP2.USUARIOS"        
+    const query = "SELECT DISTINCT USUARIOS.PAIS FROM DBP2.USUARIOS"        
+    try {
+        con = await oracledb.getConnection(connAttrs)
+        result = await con.execute(query, [], { autoCommit: true})
+    } catch (err) {
+        console.error(err)
+        return { ok: false, err }
+    } finally {
+        if (con) {
+            con.release((err) => {
+                if (err) {
+                    console.error(err)
+                }
+            })
+        }
+    }
+    if (result.rows.length >= 1) {
+              
+        return {
+            ok: true, result:{equipo:result.rows}
+        }
+    }
+    return { ok: false }
+}
+async function consultaEstados(){
+    let con, result
+    const query = "SELECT DISTINCT PARTIDO.ESTADO FROM DBP2.PARTIDO"        
     try {
         con = await oracledb.getConnection(connAttrs)
         result = await con.execute(query, [], { autoCommit: true})
@@ -1577,7 +1610,98 @@ app.get('/empleado-asc', function (req, res) {
         });
     });
 });
+app.get('/partidos', function (req, res) {    
+    "use strict";
 
+    oracledb.getConnection(connAttrs, function (err, connection) {
+        if (err) {
+            // Error connecting to DB
+            res.set('Content-Type', 'application/json');
+            res.status(500).send(JSON.stringify({
+                status: 500,
+                message: "Error connecting to DB",
+                detailed_message: err.message
+            }));
+            return;
+        }   
+        const consulta = `SELECT EQUI1.NOMBRE, EQUI2.NOMBRE,ESTADIOS.NOMBRE,PARTIDO.PUBLICO,PARTIDO.RESULTADO FROM PARTIDO JOIN EQUIPO EQUI1 ON EQUI1.ID_EQUIPO = PARTIDO.EQUIPO_ID_EQUIPO JOIN EQUIPO EQUI2 ON EQUI2.ID_EQUIPO = PARTIDO.EQUIPO_ID_EQUIPO2 JOIN ESTADIOS ON ESTADIOS.ID_ESTADIO = PARTIDO.ESTADIOS_ID_ESTADIO`
+        connection.execute(consulta, {}, {
+            outFormat: oracledb.OBJECT // Return the result as Object
+        }, function (err, result) {
+            if (err) {
+                res.set('Content-Type', 'application/json');
+                res.status(500).send(JSON.stringify({
+                    status: 500,
+                    message: "Error getting the dba_tablespaces",
+                    detailed_message: err.message
+                }));
+            } else {
+                res.header('Access-Control-Allow-Origin','*');
+                res.header('Access-Control-Allow-Headers','Content-Type');
+                res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE,OPTIONS');
+                res.contentType('application/json').status(200);
+                res.send(JSON.stringify(result.rows));
+				
+            }
+            // Release the connection
+            connection.release(
+                function (err) {
+                    if (err) {
+                        console.error(err.message);
+                    } else {
+                        console.log("GET /sendTablespace : Connection released");
+                    }
+                });
+        });
+    });
+});
+app.post('/partidos-estado', function (req, res) {    
+    "use strict";
+    const estado = req.body.estado;
+
+    oracledb.getConnection(connAttrs, function (err, connection) {
+        if (err) {
+            // Error connecting to DB
+            res.set('Content-Type', 'application/json');
+            res.status(500).send(JSON.stringify({
+                status: 500,
+                message: "Error connecting to DB",
+                detailed_message: err.message
+            }));
+            return;
+        }   
+        const consulta = `SELECT EQUI1.NOMBRE, EQUI2.NOMBRE,ESTADIOS.NOMBRE,PARTIDO.PUBLICO,PARTIDO.RESULTADO FROM PARTIDO JOIN EQUIPO EQUI1 ON EQUI1.ID_EQUIPO = PARTIDO.EQUIPO_ID_EQUIPO JOIN EQUIPO EQUI2 ON EQUI2.ID_EQUIPO = PARTIDO.EQUIPO_ID_EQUIPO2 JOIN ESTADIOS ON ESTADIOS.ID_ESTADIO = PARTIDO.ESTADIOS_ID_ESTADIO`+
+        ` WHERE PARTIDO.ESTADO = '${estado}'`
+        connection.execute(consulta, {}, {
+            outFormat: oracledb.OBJECT // Return the result as Object
+        }, function (err, result) {
+            if (err) {
+                res.set('Content-Type', 'application/json');
+                res.status(500).send(JSON.stringify({
+                    status: 500,
+                    message: "Error getting the dba_tablespaces",
+                    detailed_message: err.message
+                }));
+            } else {
+                res.header('Access-Control-Allow-Origin','*');
+                res.header('Access-Control-Allow-Headers','Content-Type');
+                res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE,OPTIONS');
+                res.contentType('application/json').status(200);
+                res.send(JSON.stringify(result.rows));
+				
+            }
+            // Release the connection
+            connection.release(
+                function (err) {
+                    if (err) {
+                        console.error(err.message);
+                    } else {
+                        console.log("GET /sendTablespace : Connection released");
+                    }
+                });
+        });
+    });
+});
 
 //Prueba de consulta.
 app.get('/prueba', function (req, res) {    

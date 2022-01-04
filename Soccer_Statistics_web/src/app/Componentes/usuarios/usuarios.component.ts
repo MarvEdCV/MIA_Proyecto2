@@ -13,11 +13,13 @@ export class UsuariosComponent implements OnInit {
   Equipos:string[]=["hola","que","tal", "estas"];
   ListaEquipos:string[]=[];
   json:any;
+  json2:any;
   selecEquipo: any;
+  selecEstado: any;
+  ListaEstados:string[]=[];
   constructor(public LoginService: LoginService,private router:Router) { }
 
   ngOnInit(): void {
-    
     this.LoginService.MostrarEquipos().subscribe((data)=>{
       this.json = JSON.parse(data);
       console.log(this.json.result.equipo.length)
@@ -25,6 +27,18 @@ export class UsuariosComponent implements OnInit {
         this.ListaEquipos.push(this.json.result.equipo[i][1]);
       }
     })
+
+    this.LoginService.MostrarEstados().subscribe((data)=>{
+      this.json2 = JSON.parse(data);
+      console.log(this.json2.result.equipo.length)
+      for(var i=0;i<this.json2.result.equipo.length;i++){
+        console.log(this.json2.result.equipo[i][0])
+        this.ListaEstados.push(this.json2.result.equipo[i][0]);
+      }
+    })
+    
+    
+
     
   }
   botonprueba(){
@@ -37,6 +51,19 @@ export class UsuariosComponent implements OnInit {
   Membresia(){
     this.LoginService.ComprarMembrecia().subscribe((data)=>{
       alert('Has adquirido una nueva membresia :D')
+    })
+  }
+  Partidos(){
+    this.LoginService.Partidos().subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA PAGO
+    })
+  }
+  PartidosEstado(){
+    const estado = {estado:this.selecEstado}
+    this.LoginService.PartidosEstado(estado).subscribe((data)=>{
+      console.log(data);
+      //EN DATA ESTA EL JSON CON LA CONSULTA
     })
   }
 
